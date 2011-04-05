@@ -6,8 +6,9 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
-public class MasterOverlay extends Overlay {
-	private static int MIN_ZOOM_LEVEL = 16;
+import static edu.ua.cs.campustour.MapConstants.*;
+
+public class RestricterOverlay extends Overlay {
 	public void draw(Canvas canvas, MapView map, boolean shadow) {
 		MapController mc = map.getController();
 		
