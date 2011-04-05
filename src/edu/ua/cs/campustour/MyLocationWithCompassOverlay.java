@@ -31,7 +31,7 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	public void drawMyLocation(Canvas canvas, MapView mapView, Location lastFix,
 			GeoPoint myLocation, long when) {
 		Point point = new Point();
-		Drawable arrow = ctx.getResources().getDrawable(R.drawable.the_map_arrow);
+		Drawable arrow = ctx.getResources().getDrawable(R.drawable.my_location_arrow);
 		super.drawMyLocation(canvas, mapView, lastFix, myLocation, when);
 		mapView.getProjection().toPixels(myLocation, point);
 		drawAt(canvas, arrow, point.x, point.y, false);
