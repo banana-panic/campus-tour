@@ -1,6 +1,7 @@
 package edu.ua.cs.campustour;
 
-import static edu.ua.cs.campustour.MapConstants.*;
+import static edu.ua.cs.campustour.MapConstants.CENTER;
+import static edu.ua.cs.campustour.MapConstants.START_ZOOM_LEVEL;
 import android.os.Bundle;
 
 import com.google.android.maps.MapActivity;

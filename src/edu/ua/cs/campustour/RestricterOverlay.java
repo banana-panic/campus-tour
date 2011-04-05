@@ -1,6 +1,10 @@
 package edu.ua.cs.campustour;
 
-import static edu.ua.cs.campustour.MapConstants.*;
+import static edu.ua.cs.campustour.MapConstants.BOTTOM_LAT;
+import static edu.ua.cs.campustour.MapConstants.LEFT_LONG;
+import static edu.ua.cs.campustour.MapConstants.MIN_ZOOM_LEVEL;
+import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
+import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
 import android.graphics.Canvas;
 
 import com.google.android.maps.GeoPoint;
