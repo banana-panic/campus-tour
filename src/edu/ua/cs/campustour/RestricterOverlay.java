@@ -10,47 +10,31 @@ import com.google.android.maps.Overlay;
 
 public class RestricterOverlay extends Overlay {
 	MapView map;
-	GeoPoint currentCenter;
-	int currentLat;
-	int currentLong;
+	MapController mc;
 	
 	public void draw(Canvas canvas, MapView aMap, boolean shadow) {
 		map = aMap;
+		mc = map.getController();
 		restrictZoom();
 		restrictPan();
 	}
 	
 	private void restrictZoom() {
-		MapController mc = map.getController();
-		if (map.getZoomLevel() < MIN_ZOOM_LEVEL) {
+		if (map.getZoomLevel() < MIN_ZOOM_LEVEL)
 			mc.setZoom(MIN_ZOOM_LEVEL);
-		}
 	}
 	
 	private void restrictPan() {
-		MapController mc = map.getController();
-		getCenter();
-		if (currentLat > TOP_LAT) {
-			mc.setCenter(new GeoPoint(TOP_LAT,currentLong));
-			getCenter();
-		}
-		if (currentLong < LEFT_LONG){
-			mc.setCenter(new GeoPoint(currentLat, LEFT_LONG));
-			getCenter();
-		}
-		if (currentLat < BOTTOM_LAT) {
-			mc.setCenter(new GeoPoint(BOTTOM_LAT,currentLong));
-			getCenter();
-		}
-		if (currentLong > RIGHT_LONG){
-			mc.setCenter(new GeoPoint(currentLat, RIGHT_LONG));
-			getCenter();
-		}
-	}
-		
-	private void getCenter() {
-		currentCenter = map.getMapCenter();
-		currentLat = currentCenter.getLatitudeE6();
-		currentLong = currentCenter.getLongitudeE6();
+		GeoPoint currentCenter = map.getMapCenter();
+		int currentLat  = currentCenter.getLatitudeE6();
+		int currentLong = currentCenter.getLongitudeE6();
+		int validLat  = currentLat;
+		int validLong = currentLong;
+		if (currentLat  > TOP_LAT) 	  validLat = TOP_LAT;
+		if (currentLat  < BOTTOM_LAT) validLat = BOTTOM_LAT;
+		if (currentLong < LEFT_LONG)  validLong = LEFT_LONG;
+		if (currentLong > RIGHT_LONG) validLong = RIGHT_LONG;
+		if (currentLat != validLat || currentLong != validLong) 
+			mc.setCenter(new GeoPoint(validLat, validLong));
 	}
 }
