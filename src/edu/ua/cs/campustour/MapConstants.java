@@ -11,4 +11,5 @@ public interface MapConstants {
 	public static final int RIGHT_LONG = -87525998;
 	public static final GeoPoint BOTTOM_RIGHT_BOUNDS = new GeoPoint(BOTTOM_LAT, RIGHT_LONG);
 	public static final int MIN_ZOOM_LEVEL = 16;
+	public static final int START_ZOOM_LEVEL = 17;
 }

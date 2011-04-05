@@ -1,7 +1,6 @@
 package edu.ua.cs.campustour;
 
-import static edu.ua.cs.campustour.MapConstants.CENTER;
-import static edu.ua.cs.campustour.MapConstants.MIN_ZOOM_LEVEL;
+import static edu.ua.cs.campustour.MapConstants.*;
 import android.os.Bundle;
 
 import com.google.android.maps.MapActivity;
@@ -32,6 +31,6 @@ public class CampusTour extends MapActivity {
 		map.getOverlays().add(restricter);
 		MapController mc = map.getController();
 		mc.setCenter(CENTER);
-		mc.setZoom(MIN_ZOOM_LEVEL);
+		mc.setZoom(START_ZOOM_LEVEL);
 	}
 }

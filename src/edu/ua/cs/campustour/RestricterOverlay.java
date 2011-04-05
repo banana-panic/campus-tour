@@ -21,7 +21,7 @@ public class RestricterOverlay extends Overlay {
 	
 	private void restrictZoom() {
 		if (map.getZoomLevel() < MIN_ZOOM_LEVEL)
-			mc.setZoom(MIN_ZOOM_LEVEL);
+			mc.zoomIn();
 	}
 	
 	private void restrictPan() {
