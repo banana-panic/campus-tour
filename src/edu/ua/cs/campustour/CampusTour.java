@@ -10,7 +10,7 @@ import com.google.android.maps.MapView;
 
 public class CampusTour extends MapActivity {
 	@SuppressWarnings("unused")
-	private static String TAG = "CampusTourActivity";
+	private static final String TAG = "CampusTourActivity";
 	private MapView map;
 	private RestricterOverlay restricter = new RestricterOverlay();
     /** Called when the activity is first created. */

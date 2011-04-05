@@ -13,8 +13,8 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
 public class RestricterOverlay extends Overlay {
-	MapView map;
-	MapController mc;
+	private MapView map;
+	private MapController mc;
 	
 	public void draw(Canvas canvas, MapView aMap, boolean shadow) {
 		map = aMap;
