@@ -15,26 +15,22 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	
 	private static String TAG = "MyLocationOverlay";
 	private Context ctx;
+	private Point currentLocationPoint;
+	private Drawable arrow;
 
 	public MyLocationWithCompassOverlay(Context context, MapView aMapView) {
 		super(context, aMapView);
 		ctx = context;
-	}
-	
-	@Override
-	public boolean draw(Canvas canvas, MapView mv, boolean shadow, long when) {
-		Log.d(TAG, "isMyLocationEnabled=" + isMyLocationEnabled());
-		return super.draw(canvas, mv, shadow, when);
+		currentLocationPoint = new Point();
+		arrow = ctx.getResources().getDrawable(R.drawable.my_location_arrow);
+		arrow.setBounds(-25, -25, 25, 25);
 	}
 	
 	@Override
 	public void drawMyLocation(Canvas canvas, MapView mapView, Location lastFix,
 			GeoPoint myLocation, long when) {
-		Point point = new Point();
-		Drawable arrow = ctx.getResources().getDrawable(R.drawable.my_location_arrow);
-		super.drawMyLocation(canvas, mapView, lastFix, myLocation, when);
-		mapView.getProjection().toPixels(myLocation, point);
-		drawAt(canvas, arrow, point.x, point.y, false);
+		mapView.getProjection().toPixels(myLocation, currentLocationPoint);
+		drawAt(canvas, arrow, currentLocationPoint.x, currentLocationPoint.y, false);
 	}
 
 }

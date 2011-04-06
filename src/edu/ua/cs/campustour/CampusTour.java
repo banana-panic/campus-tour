@@ -3,10 +3,12 @@ package edu.ua.cs.campustour;
 import static edu.ua.cs.campustour.MapConstants.CENTER;
 import static edu.ua.cs.campustour.MapConstants.START_ZOOM_LEVEL;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
 
 public class CampusTour extends MapActivity {
 	@SuppressWarnings("unused")
@@ -19,6 +21,7 @@ public class CampusTour extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
         initMapView();
+        initMyLocationOverlay();
     }
 
 	@Override
@@ -33,5 +36,11 @@ public class CampusTour extends MapActivity {
 		MapController mc = map.getController();
 		mc.setCenter(CENTER);
 		mc.setZoom(START_ZOOM_LEVEL);
+	}
+	
+	public void initMyLocationOverlay() {
+		final MyLocationWithCompassOverlay overlay = new MyLocationWithCompassOverlay(this, map);
+		Log.d(TAG, "Enabling Overlay: " + overlay.enableMyLocation());
+		map.getOverlays().add(overlay);
 	}
 }
