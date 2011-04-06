@@ -40,7 +40,6 @@ public class CampusTour extends MapActivity {
 	
 	public void initMyLocationOverlay() {
 		final MyLocationWithCompassOverlay overlay = new MyLocationWithCompassOverlay(this, map);
-		Log.d(TAG, "Enabling Overlay: " + overlay.enableMyLocation());
 		map.getOverlays().add(overlay);
 	}
 }
