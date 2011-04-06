@@ -31,13 +31,12 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	public void drawMyLocation(Canvas canvas, MapView mapView, Location lastFix,
 			GeoPoint myLocation, long when) {
 		mapView.getProjection().toPixels(myLocation, currentLocationPoint);
-		arrow.setLevel(Math.round((bearing / 360) * 10000));
 		drawAt(canvas, arrow, currentLocationPoint.x, currentLocationPoint.y, false);
 	}
 	
 	@Override
 	public void drawCompass(Canvas canvas, float bearing) {
-		this.bearing = bearing;
+		arrow.setLevel(Math.round((bearing / 360) * 10000));
 	}
-
+	
 }
