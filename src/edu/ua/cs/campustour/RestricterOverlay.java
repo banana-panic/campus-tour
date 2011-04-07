@@ -1,10 +1,5 @@
 package edu.ua.cs.campustour;
 
-import static edu.ua.cs.campustour.MapConstants.BOTTOM_LAT;
-import static edu.ua.cs.campustour.MapConstants.LEFT_LONG;
-import static edu.ua.cs.campustour.MapConstants.MIN_ZOOM_LEVEL;
-import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
-import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
 import android.graphics.Canvas;
 
 import com.google.android.maps.GeoPoint;
@@ -15,6 +10,21 @@ import com.google.android.maps.Overlay;
 public class RestricterOverlay extends Overlay {
 	private MapView map;
 	private MapController mc;
+	private int left;
+	private int top;
+	private int right;
+	private int bottom;
+	private int min;
+	private int max;
+	
+	public RestricterOverlay(int leftlong, int toplat, int rightlong, int botlat, int minzoom, int maxzoom) {
+		left = leftlong;
+		top = toplat;
+		right = rightlong;
+		bottom = botlat;
+		min = minzoom;
+		max = maxzoom;
+	}
 	
 	public void draw(Canvas canvas, MapView aMap, boolean shadow) {
 		map = aMap;
@@ -24,8 +34,11 @@ public class RestricterOverlay extends Overlay {
 	}
 	
 	private void restrictZoom() {
-		if (map.getZoomLevel() < MIN_ZOOM_LEVEL)
+		int zoom = map.getZoomLevel();
+		if (zoom < min)
 			mc.zoomIn();
+		else if (zoom > max)
+			mc.zoomOut();
 	}
 	
 	private void restrictPan() {
@@ -34,11 +47,11 @@ public class RestricterOverlay extends Overlay {
 		int currentLong = currentCenter.getLongitudeE6();
 		int validLat  = currentLat;
 		int validLong = currentLong;
-		if (currentLat  > TOP_LAT) 	  validLat = TOP_LAT;
-		if (currentLat  < BOTTOM_LAT) validLat = BOTTOM_LAT;
-		if (currentLong < LEFT_LONG)  validLong = LEFT_LONG;
-		if (currentLong > RIGHT_LONG) validLong = RIGHT_LONG;
-		if (currentLat != validLat || currentLong != validLong) 
+		if (currentLong < left)  validLong = left;
+		if (currentLat  > top) 	  validLat = top;
+		if (currentLong > right) validLong = right;
+		if (currentLat  < bottom) validLat = bottom;
+		if (currentLat != validLat || currentLong != validLong)
 			mc.setCenter(new GeoPoint(validLat, validLong));
 	}
 }

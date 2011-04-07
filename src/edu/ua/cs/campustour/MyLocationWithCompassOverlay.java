@@ -17,13 +17,16 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	private Context ctx;
 	private Point currentLocationPoint;
 	private Drawable arrow;
-	private float bearing;
 
 	public MyLocationWithCompassOverlay(Context context, MapView aMapView) {
+		this(context, aMapView, R.drawable.rotatable_my_location_arrow);
+	}
+	
+	public MyLocationWithCompassOverlay(Context context, MapView aMapView, int arrowResId) {
 		super(context, aMapView);
 		ctx = context;
 		currentLocationPoint = new Point();
-		arrow = ctx.getResources().getDrawable(R.drawable.rotatable_my_location_arrow);
+		arrow = ctx.getResources().getDrawable(arrowResId);
 		arrow.setBounds(-25, -25, 25, 25);
 	}
 	
