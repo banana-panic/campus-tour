@@ -15,6 +15,7 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	
 	private static String TAG = "MyLocationOverlay";
 	private Context ctx;
+	private MapView mv;
 	private Point currentLocationPoint;
 	private Drawable arrow;
 
@@ -25,6 +26,7 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	public MyLocationWithCompassOverlay(Context context, MapView aMapView, int arrowResId) {
 		super(context, aMapView);
 		ctx = context;
+		mv = aMapView;
 		currentLocationPoint = new Point();
 		arrow = ctx.getResources().getDrawable(arrowResId);
 		arrow.setBounds(-25, -25, 25, 25);
@@ -40,6 +42,7 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	@Override
 	public void drawCompass(Canvas canvas, float bearing) {
 		arrow.setLevel(Math.round((bearing / 360) * 10000));
+		mv.invalidate();
 	}
 	
 }
