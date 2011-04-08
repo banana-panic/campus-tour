@@ -10,6 +10,10 @@ import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
 import static edu.ua.cs.campustour.MapConstants.START_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -22,6 +26,7 @@ public class CampusTour extends MapActivity {
 	private MapView map;
 	private RestricterOverlay restricter = new RestricterOverlay(LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
     private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
+	private MyLocationWithCompassOverlay mlo;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,28 @@ public class CampusTour extends MapActivity {
 		return false;
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.mapmenu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.exitbutton:
+			mlo.disableMyLocation();
+			mlo.disableCompass();
+			finish();
+			break;
+		default:
+			Log.d(TAG, "Unexpected MenuItem");
+		}
+			
+		return true;
+	}
+	
 	public void initMapView() {
 		map = (MapView) findViewById(R.id.map);
 		map.setBuiltInZoomControls(true);
@@ -46,9 +73,9 @@ public class CampusTour extends MapActivity {
 	}
 	
 	public void initMyLocationOverlay() {
-		final MyLocationWithCompassOverlay overlay = new MyLocationWithCompassOverlay(this, map);
-		map.getOverlays().add(overlay);
-		overlay.enableMyLocation();
-		overlay.enableCompass();
+		mlo = new MyLocationWithCompassOverlay(this, map);
+		map.getOverlays().add(mlo);
+		mlo.enableMyLocation();
+		mlo.enableCompass();
 	}
 }
