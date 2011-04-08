@@ -18,9 +18,11 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	private MapView mv;
 	private Point currentLocationPoint;
 	private Drawable arrow;
+	private float lastBearing;
 
 	public MyLocationWithCompassOverlay(Context context, MapView aMapView) {
 		this(context, aMapView, R.drawable.rotatable_my_location_arrow);
+		lastBearing = 0;
 	}
 	
 	public MyLocationWithCompassOverlay(Context context, MapView aMapView, int arrowResId) {
@@ -42,7 +44,9 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	@Override
 	public void drawCompass(Canvas canvas, float bearing) {
 		arrow.setLevel(Math.round((bearing / 360) * 10000));
-		mv.invalidate();
+		if (Math.abs(bearing - lastBearing) > 2)
+			mv.invalidate();
+		lastBearing = bearing;
 	}
 	
 }
