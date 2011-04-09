@@ -14,6 +14,7 @@ import java.util.List;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,10 +34,13 @@ public class CampusTour extends MapActivity {
 	private RestricterOverlay restricter = new RestricterOverlay(LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
     private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
 	private MyLocationWithCompassOverlay mlo;
+	private DisplayMetrics dm;
+	
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dm = this.getResources().getDisplayMetrics();
         setContentView(R.layout.map);
         initMapView();
         initMyLocationOverlay();
@@ -93,6 +97,10 @@ public class CampusTour extends MapActivity {
 		OverlayItem center = new OverlayItem(mapCenter, "Testing", "Test test");
 		mio.addItem(center);
 		overlays.add(mio);
+	}
+	
+	public int scale(float dp) {
+		return Math.round(dm.density * dp);
 	}
 		
 }

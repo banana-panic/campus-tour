@@ -14,28 +14,26 @@ import com.google.android.maps.MyLocationOverlay;
 public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	
 	private static String TAG = "MyLocationOverlay";
-	private Context ctx;
+	private CampusTour ctx;
 	private MapView mv;
 	private Point currentLocationPoint;
 	private Drawable arrow;
 	private float lastBearing;
-	private final float scale;
 
-	public MyLocationWithCompassOverlay(Context context, MapView aMapView) {
+	public MyLocationWithCompassOverlay(CampusTour context, MapView aMapView) {
 		this(context, aMapView, R.drawable.rotatable_my_location_arrow);
 		lastBearing = 0;
 	}
 	
-	public MyLocationWithCompassOverlay(Context context, MapView aMapView, int arrowResId) {
+	public MyLocationWithCompassOverlay(CampusTour context, MapView aMapView, int arrowResId) {
 		super(context, aMapView);
-		scale = context.getResources().getDisplayMetrics().density;
 		ctx = context;
 		mv = aMapView;
 		currentLocationPoint = new Point();
-		int dp = Math.round(ARROW_SIZE * scale);
+		int px = context.scale(ARROW_SIZE);
 
 		arrow = ctx.getResources().getDrawable(arrowResId);
-		arrow.setBounds(-dp, -dp, dp, dp);
+		arrow.setBounds(-px, -px, px, px);
 	}
 	
 	@Override
