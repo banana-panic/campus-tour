@@ -34,6 +34,7 @@ public class CampusTour extends MapActivity {
 	private RestricterOverlay restricter = new RestricterOverlay(LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
     private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
 	private MyLocationWithCompassOverlay mlo;
+	private MyItemizedOverlay mio;
 	private DisplayMetrics dm;
 	
 	/** Called when the activity is first created. */
@@ -91,12 +92,11 @@ public class CampusTour extends MapActivity {
 	}
 	
 	public void initMyItemizedOverlay() {
-		List<Overlay> overlays = map.getOverlays();
-		Drawable marker = this.getResources().getDrawable(R.drawable.marker);
-		MyItemizedOverlay mio = new MyItemizedOverlay(marker, this);
+		Drawable marker = this.getResources().getDrawable(android.R.drawable.radiobutton_off_background);
+		mio = new MyItemizedOverlay(marker, this);
 		OverlayItem center = new OverlayItem(mapCenter, "Testing", "Test test");
 		mio.addItem(center);
-		overlays.add(mio);
+		map.getOverlays().add(mio);
 	}
 	
 	public int scale(float dp) {

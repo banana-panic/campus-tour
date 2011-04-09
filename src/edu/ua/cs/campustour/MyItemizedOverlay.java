@@ -21,7 +21,7 @@ public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	}
 	
 	public MyItemizedOverlay(Drawable defaultMarker, Context ctx) {
-		super(boundCenter(defaultMarker));
+		this(defaultMarker);
 		context = ctx;
 	}
 	
