@@ -9,6 +9,10 @@ import static edu.ua.cs.campustour.MapConstants.MIN_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
 import static edu.ua.cs.campustour.MapConstants.START_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
+
+import java.util.List;
+
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +23,8 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 public class CampusTour extends MapActivity {
 	@SuppressWarnings("unused")
@@ -34,6 +40,7 @@ public class CampusTour extends MapActivity {
         setContentView(R.layout.map);
         initMapView();
         initMyLocationOverlay();
+        initMyItemizedOverlay();
     }
 
 	@Override
@@ -78,4 +85,14 @@ public class CampusTour extends MapActivity {
 		mlo.enableMyLocation();
 		mlo.enableCompass();
 	}
+	
+	public void initMyItemizedOverlay() {
+		List<Overlay> overlays = map.getOverlays();
+		Drawable marker = this.getResources().getDrawable(R.drawable.marker);
+		MyItemizedOverlay mio = new MyItemizedOverlay(marker, this);
+		OverlayItem center = new OverlayItem(mapCenter, "Testing", "Test test");
+		mio.addItem(center);
+		overlays.add(mio);
+	}
+		
 }
