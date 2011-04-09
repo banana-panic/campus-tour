@@ -8,7 +8,7 @@
     android:id="@+id/map"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent" 
-    android:apiKey="0syY4TWYUSayx7RhNCQJuL1taBlEi7OUUuov65w"
+    android:apiKey="@string/maps_key"
     android:clickable="true"
     />
 </LinearLayout>
