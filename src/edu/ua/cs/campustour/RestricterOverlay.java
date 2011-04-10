@@ -8,6 +8,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
 public class RestricterOverlay extends Overlay {
+	private CampusTour ctx;
 	private MapView map;
 	private MapController mc;
 	private int left;
@@ -17,7 +18,8 @@ public class RestricterOverlay extends Overlay {
 	private int min;
 	private int max;
 	
-	public RestricterOverlay(int leftlong, int toplat, int rightlong, int botlat, int minzoom, int maxzoom) {
+	public RestricterOverlay(CampusTour context, int leftlong, int toplat, int rightlong, int botlat, int minzoom, int maxzoom) {
+		ctx = context;
 		left = leftlong;
 		top = toplat;
 		right = rightlong;
@@ -52,6 +54,7 @@ public class RestricterOverlay extends Overlay {
 		if (currentLong > right) validLong = right;
 		if (currentLat  < bottom) validLat = bottom;
 		if (currentLat != validLat || currentLong != validLong)
+			if (ctx.getFollow()) ctx.setFollow(false);
 			mc.setCenter(new GeoPoint(validLat, validLong));
 	}
 }

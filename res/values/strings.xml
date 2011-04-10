@@ -3,4 +3,5 @@
     <string name="app_name">Campus Tour</string>
     <string name="maps_key">0syY4TWYUSayx7RhNCQJuL1taBlEi7OUUuov65w</string>
     <string name="exit">Exit</string>
+    <string name="follow">My Location</string>
 </resources>

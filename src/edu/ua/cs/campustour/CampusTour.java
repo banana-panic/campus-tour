@@ -9,9 +9,6 @@ import static edu.ua.cs.campustour.MapConstants.MIN_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
 import static edu.ua.cs.campustour.MapConstants.START_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
-
-import java.util.List;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -24,18 +21,18 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 public class CampusTour extends MapActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "CampusTourActivity";
 	private MapView map;
-	private RestricterOverlay restricter = new RestricterOverlay(LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
+	private RestricterOverlay restricter = new RestricterOverlay(this, LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
     private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
 	private MyLocationWithCompassOverlay mlo;
 	private MyItemizedOverlay mio;
 	private DisplayMetrics dm;
+	private boolean follow = false;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -67,6 +64,9 @@ public class CampusTour extends MapActivity {
 			mlo.disableMyLocation();
 			mlo.disableCompass();
 			finish();
+			break;
+		case R.id.followbutton:
+			setFollow(true);
 			break;
 		default:
 			Log.d(TAG, "Unexpected MenuItem");
@@ -102,5 +102,8 @@ public class CampusTour extends MapActivity {
 	public int scale(float dp) {
 		return Math.round(dm.density * dp);
 	}
-		
+	
+	public boolean getFollow() { return follow; }
+	
+	public void setFollow(boolean bool) { follow = bool; }
 }
