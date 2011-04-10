@@ -48,8 +48,8 @@ public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 		return true;
 	}
 	
-	public void addItem(OverlayItem item) {
-		items.add(item);
+	public void addBuilding(Building added) {
+		items.add(new BuildingOverlayItem(added));
 		populate();
 	}
 }

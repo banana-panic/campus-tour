@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="buildings">
+	{\"buildings\": [
+		{
+			\"name\": \"Houser Hall\",
+			\"lat\": 33.214348,
+			\"long\": -87.544743
+		},
+		{
+			\"name\": \"Hardaway Hall\",
+			\"lat\": 33.213275,
+			\"long\": -87.544947 
+
+		}
+	] }
+	</string>
+</resources>

@@ -9,6 +9,12 @@ import static edu.ua.cs.campustour.MapConstants.MIN_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
 import static edu.ua.cs.campustour.MapConstants.START_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
+
+import java.util.ArrayList;
+
+import org.json.JSONException;
+
+import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -37,6 +43,7 @@ public class CampusTour extends MapActivity {
 	private MyItemizedOverlay mio;
 	private DisplayMetrics dm;
 	private boolean follow = false;
+	private ArrayList<Building> buildingList;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -45,6 +52,13 @@ public class CampusTour extends MapActivity {
         mtlo = new MapTouchListenerOverlay(this);
         dm = this.getResources().getDisplayMetrics();
         setContentView(R.layout.map);
+        
+        try {
+			buildingList = BuildingParser.parse(getResources().getString(R.string.buildings));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
         initMapView();
         initMyLocationOverlay();
         initMyItemizedOverlay();
@@ -99,10 +113,12 @@ public class CampusTour extends MapActivity {
 	
 	public void initMyItemizedOverlay() {
 		Drawable marker = this.getResources().getDrawable(android.R.drawable.radiobutton_off_background);
-		mio = new MyItemizedOverlay(marker, this);
+		bio = new BuildingItemizedOverlay(marker, this);
 		OverlayItem center = new OverlayItem(mapCenter, "Testing", "Test test");
-		mio.addItem(center);
-		map.getOverlays().add(mio);
+		for (Building b : buildingList) {
+			bio.addBuilding(b);
+		}
+		map.getOverlays().add(bio);
 	}
 	
 	public int scale(float dp) {
