@@ -40,7 +40,7 @@ public class CampusTour extends MapActivity {
     private MapTouchListenerOverlay mtlo;
 	private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
     private MyLocationWithCompassOverlay mlo;
-	private MyItemizedOverlay mio;
+	private BuildingItemizedOverlay bio;
 	private DisplayMetrics dm;
 	private boolean follow = false;
 	private ArrayList<Building> buildingList;

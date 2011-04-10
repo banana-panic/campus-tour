@@ -11,16 +11,16 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class MyItemizedOverlay extends ItemizedOverlay<OverlayItem> {
+public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	
 	private ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
 	private Context context;
 	
-	public MyItemizedOverlay(Drawable defaultMarker) {
+	public BuildingItemizedOverlay(Drawable defaultMarker) {
 		super(boundCenter(defaultMarker));
 	}
 	
-	public MyItemizedOverlay(Drawable defaultMarker, Context ctx) {
+	public BuildingItemizedOverlay(Drawable defaultMarker, Context ctx) {
 		this(defaultMarker);
 		context = ctx;
 	}
