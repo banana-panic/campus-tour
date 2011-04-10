@@ -114,7 +114,6 @@ public class CampusTour extends MapActivity {
 	public void initMyItemizedOverlay() {
 		Drawable marker = this.getResources().getDrawable(android.R.drawable.radiobutton_off_background);
 		bio = new BuildingItemizedOverlay(marker, this);
-		OverlayItem center = new OverlayItem(mapCenter, "Testing", "Test test");
 		for (Building b : buildingList) {
 			bio.addBuilding(b);
 		}
