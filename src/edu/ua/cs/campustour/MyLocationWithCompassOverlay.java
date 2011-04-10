@@ -1,9 +1,13 @@
 package edu.ua.cs.campustour;
 
 import static edu.ua.cs.campustour.MapConstants.ARROW_SIZE;
-import android.content.Context;
+
+import java.io.IOException;
+
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 
@@ -32,7 +36,13 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 		currentLocationPoint = new Point();
 		int px = context.scale(ARROW_SIZE);
 
-		arrow = ctx.getResources().getDrawable(arrowResId);
+		try {
+			arrow = new BitmapDrawable(BitmapFactory.decodeStream((ctx.getAssets().open("my_location_arrow.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//arrow = ctx.getResources().getDrawable(arrowResId);
 		arrow.setBounds(-px, -px, px, px);
 	}
 	
@@ -45,10 +55,10 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	
 	@Override
 	public void drawCompass(Canvas canvas, float bearing) {
-		arrow.setLevel(Math.round((bearing / 360) * 10000));
-		if (Math.abs(bearing - lastBearing) > 2)
-			mv.invalidate();
-		lastBearing = bearing;
+//		arrow.setLevel(Math.round((bearing / 360) * 10000));
+//		if (Math.abs(bearing - lastBearing) > 2)
+//			mv.invalidate();
+//		lastBearing = bearing;
 	}
 	
 }
