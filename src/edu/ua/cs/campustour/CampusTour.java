@@ -60,13 +60,13 @@ public class CampusTour extends MapActivity {
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.followbutton:
+			setFollow(true);
+			break;
 		case R.id.exitbutton:
 			mlo.disableMyLocation();
 			mlo.disableCompass();
 			finish();
-			break;
-		case R.id.followbutton:
-			setFollow(true);
 			break;
 		default:
 			Log.d(TAG, "Unexpected MenuItem");

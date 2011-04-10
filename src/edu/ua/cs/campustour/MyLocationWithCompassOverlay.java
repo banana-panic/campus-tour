@@ -41,7 +41,7 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 	@Override
 	public void drawMyLocation(Canvas canvas, MapView mapView, Location lastFix,
 			GeoPoint myLocation, long when) {
-		if(ctx.getFollow()) mc.animateTo(myLocation);
+		if(ctx.getFollow()) mc.setCenter(myLocation);
 		mapView.getProjection().toPixels(myLocation, currentLocationPoint);
 		drawAt(canvas, arrow, currentLocationPoint.x, currentLocationPoint.y, false);
 	}
