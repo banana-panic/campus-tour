@@ -16,6 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -28,8 +31,9 @@ public class CampusTour extends MapActivity {
 	private static final String TAG = "CampusTourActivity";
 	private MapView map;
 	private RestricterOverlay restricter = new RestricterOverlay(this, LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
-    private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
-	private MyLocationWithCompassOverlay mlo;
+    private MapTouchListenerOverlay mtlo;
+	private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
+    private MyLocationWithCompassOverlay mlo;
 	private MyItemizedOverlay mio;
 	private DisplayMetrics dm;
 	private boolean follow = false;
@@ -38,6 +42,7 @@ public class CampusTour extends MapActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mtlo = new MapTouchListenerOverlay(this);
         dm = this.getResources().getDisplayMetrics();
         setContentView(R.layout.map);
         initMapView();
@@ -78,6 +83,7 @@ public class CampusTour extends MapActivity {
 	public void initMapView() {
 		map = (MapView) findViewById(R.id.map);
 		map.setBuiltInZoomControls(true);
+		map.getOverlays().add(mtlo);
 		map.getOverlays().add(restricter);
 		MapController mc = map.getController();
 		mc.setCenter(mapCenter);
