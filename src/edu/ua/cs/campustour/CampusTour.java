@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import org.json.JSONException;
 
-import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -22,22 +21,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.google.android.maps.OverlayItem;
 
 public class CampusTour extends MapActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "CampusTourActivity";
 	private MapView map;
 	private RestricterOverlay restricter = new RestricterOverlay(this, LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
-    private MapTouchListenerOverlay mtlo;
 	private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
     private MyLocationWithCompassOverlay mlo;
 	private BuildingItemizedOverlay bio;
@@ -49,7 +43,6 @@ public class CampusTour extends MapActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mtlo = new MapTouchListenerOverlay(this);
         dm = this.getResources().getDisplayMetrics();
         setContentView(R.layout.map);
         
@@ -97,7 +90,6 @@ public class CampusTour extends MapActivity {
 	public void initMapView() {
 		map = (MapView) findViewById(R.id.map);
 		map.setBuiltInZoomControls(true);
-		map.getOverlays().add(mtlo);
 		map.getOverlays().add(restricter);
 		MapController mc = map.getController();
 		mc.setCenter(mapCenter);

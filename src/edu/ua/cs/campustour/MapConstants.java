@@ -10,5 +10,8 @@ public interface MapConstants {
 	public static final int MIN_ZOOM    = 16;
 	public static final int MAX_ZOOM    = 21;
 	public static final int START_ZOOM  = 17;
-	public static final float ARROW_SIZE = 15; // in half dp
+	public static final int ACCURACY_BORDER = 0xff0000ff;
+	public static final int ACCURACY_FILL   = 0x330000ff;
+	public static final int BOUNDARY_FILL   = 0x33000000;
+	public static final float ARROW_SIZE    = 15; // in half dp
 }

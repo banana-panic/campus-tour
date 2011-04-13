@@ -1,11 +1,19 @@
 package edu.ua.cs.campustour;
 
+import static edu.ua.cs.campustour.MapConstants.BOTTOM_LAT;
+import static edu.ua.cs.campustour.MapConstants.BOUNDARY_FILL;
+import static edu.ua.cs.campustour.MapConstants.LEFT_LONG;
+import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
+import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.graphics.Region;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+import com.google.android.maps.Projection;
 
 public class RestricterOverlay extends Overlay {
 	private CampusTour ctx;
@@ -17,6 +25,8 @@ public class RestricterOverlay extends Overlay {
 	private int bottom;
 	private int min;
 	private int max;
+	private Point a;
+	private Point b;
 	
 	public RestricterOverlay(CampusTour context, int leftlong, int toplat, int rightlong, int botlat, int minzoom, int maxzoom) {
 		ctx = context;
@@ -26,13 +36,26 @@ public class RestricterOverlay extends Overlay {
 		bottom = botlat;
 		min = minzoom;
 		max = maxzoom;
+		a = new Point();
+		b = new Point();
 	}
 	
 	public void draw(Canvas canvas, MapView aMap, boolean shadow) {
-		map = aMap;
-		mc = map.getController();
-		restrictZoom();
-		restrictPan();
+		if(!shadow){
+			map = aMap;
+			mc = map.getController();
+			
+			canvas.save();
+			Projection proj = aMap.getProjection();
+			proj.toPixels(new GeoPoint(TOP_LAT, LEFT_LONG), a);
+			proj.toPixels(new GeoPoint(BOTTOM_LAT, RIGHT_LONG), b);
+			canvas.clipRect(a.x,a.y,b.x,b.y, Region.Op.DIFFERENCE);
+			canvas.drawColor(BOUNDARY_FILL);
+			canvas.restore();
+			
+			restrictZoom();
+			restrictPan();
+		}
 	}
 	
 	private void restrictZoom() {
