@@ -2,8 +2,8 @@ package edu.ua.cs.campustour;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
@@ -13,7 +13,7 @@ import com.google.android.maps.OverlayItem;
 
 public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	
-	private ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
+	private ArrayList<BuildingOverlayItem> items = new ArrayList<BuildingOverlayItem>();
 	private Context context;
 	
 	public BuildingItemizedOverlay(Drawable defaultMarker) {
@@ -27,7 +27,7 @@ public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	
 	//called by populate();
 	@Override
-	protected OverlayItem createItem(int i) { return items.get(i); }
+	protected BuildingOverlayItem createItem(int i) { return items.get(i); }
 	
 	@Override
 	public int size() { return items.size(); }
@@ -40,11 +40,17 @@ public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	//Dialog stuff from a tutorial, we'll add popup call here?
 	@Override
 	protected boolean onTap(int i) {
-		OverlayItem item = items.get(i);
+		BuildingOverlayItem item = items.get(i);
+		/*
 		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 		dialog.setTitle(item.getTitle());
 		dialog.setMessage(item.getSnippet());
 		dialog.show();
+		*/
+		Intent intent = new Intent(context, TextInfo.class); 
+		intent.putExtra("id", item.getBuilding().id);
+		intent.putExtra("name", item.getTitle());
+		context.startActivity(intent);
 		return true;
 	}
 	

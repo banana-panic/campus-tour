@@ -20,7 +20,8 @@ public class BuildingParser {
 	}
 	
 	private static Building makeBuilding(JSONObject json) throws JSONException {
-		return new Building(json.getString("name"),
+		return new Building(json.getString("id"),
+				json.getString("name"),
 				(float) json.getDouble("lat"),
 				(float) json.getDouble("long"));
 	}
