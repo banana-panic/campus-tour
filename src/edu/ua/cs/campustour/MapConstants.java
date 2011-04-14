@@ -12,6 +12,7 @@ public interface MapConstants {
 	public static final int START_ZOOM  = 17;
 	public static final int ACCURACY_BORDER = 0x440000ff;
 	public static final int ACCURACY_FILL   = 0x110000ff;
-	public static final int BOUNDARY_FILL   = 0x99000000;
+	public static final int BOUNDARY_FILL   = 0xdd000000;
+	public static final float BOUNDARY_WIDTH_PERCENT = 0.05f;
 	public static final float ARROW_SIZE    = 15; // in half dp
 }

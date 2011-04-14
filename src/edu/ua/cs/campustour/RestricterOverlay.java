@@ -2,6 +2,7 @@ package edu.ua.cs.campustour;
 
 import static edu.ua.cs.campustour.MapConstants.BOTTOM_LAT;
 import static edu.ua.cs.campustour.MapConstants.BOUNDARY_FILL;
+import static edu.ua.cs.campustour.MapConstants.BOUNDARY_WIDTH_PERCENT;
 import static edu.ua.cs.campustour.MapConstants.LEFT_LONG;
 import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
@@ -47,9 +48,14 @@ public class RestricterOverlay extends Overlay {
 			
 			canvas.save();
 			Projection proj = aMap.getProjection();
+			int h = aMap.getHeight();
+			int w = aMap.getWidth();
+			float width_off = w*(0.5f-BOUNDARY_WIDTH_PERCENT);
+			float height_off = (h*0.5f-w*BOUNDARY_WIDTH_PERCENT);
 			proj.toPixels(new GeoPoint(TOP_LAT, LEFT_LONG), a);
 			proj.toPixels(new GeoPoint(BOTTOM_LAT, RIGHT_LONG), b);
-			canvas.clipRect(a.x,a.y,b.x,b.y, Region.Op.DIFFERENCE);
+			canvas.clipRect(a.x-width_off, a.y-height_off,
+							b.x+width_off, b.y+height_off, Region.Op.DIFFERENCE);
 			canvas.drawColor(BOUNDARY_FILL);
 			canvas.restore();
 			
