@@ -1,7 +1,13 @@
 package edu.ua.cs.campustour;
 
-import static edu.ua.cs.campustour.MapConstants.*;
+import static edu.ua.cs.campustour.MapConstants.ACCURACY_BORDER;
+import static edu.ua.cs.campustour.MapConstants.ACCURACY_FILL;
+import static edu.ua.cs.campustour.MapConstants.ARROW_COLOR;
+import static edu.ua.cs.campustour.MapConstants.ARROW_SIZE;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -40,8 +46,10 @@ public class MyLocationWithCompassOverlay extends MyLocationOverlay {
 		currentLocationPoint = new Point();
 		int px = context.scale(ARROW_SIZE);
 
+		ColorFilter filter = new LightingColorFilter(Color.WHITE, ARROW_COLOR);
 		arrow = ctx.getResources().getDrawable(arrowResId);
 		arrow.setBounds(-px, -px, px, px);
+		arrow.setColorFilter(filter);
 	}
 	
 	@Override

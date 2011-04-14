@@ -1,5 +1,7 @@
 package edu.ua.cs.campustour;
 
+import android.graphics.Color;
+
 public interface MapConstants {
 	public static final int CENTER_LAT  = 33210553;
 	public static final int CENTER_LONG = -87541559;
@@ -15,4 +17,5 @@ public interface MapConstants {
 	public static final int BOUNDARY_FILL   = 0xdd000000;
 	public static final float BOUNDARY_WIDTH_PERCENT = 0.05f;
 	public static final float ARROW_SIZE    = 15; // in half dp
+	public static final int ARROW_COLOR   = 0xff000088;
 }
