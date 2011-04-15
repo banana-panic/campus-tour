@@ -5,12 +5,22 @@
 		{
 			\"name\": \"Houser Hall\",
 			\"lat\": 33.214348,
-			\"long\": -87.544743
+			\"long\": -87.544743,
+			\"id\": 0,
+			\"thumbnail\": true,
+			\"textInfo\": "enabled",
+			\"images\": "enabled",
+			\"av\": "enabled"
 		},
 		{
 			\"name\": \"Hardaway Hall\",
 			\"lat\": 33.213275,
-			\"long\": -87.544947 
+			\"long\": -87.544947,
+			\"id\": 1,
+			\"thumbnail\": false,
+			\"textInfo\": "enabled",
+			\"images\": "disabled",
+			\"av\": "hidden"
 		}
 	] }
 	</string>

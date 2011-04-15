@@ -10,7 +10,7 @@ import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
 import static edu.ua.cs.campustour.MapConstants.START_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 import org.json.JSONException;
 
@@ -37,7 +37,7 @@ public class CampusTour extends MapActivity {
 	private BuildingItemizedOverlay bio;
 	private DisplayMetrics dm;
 	private boolean follow = false;
-	private ArrayList<Building> buildingList;
+	private Map<String, Building> buildingMap;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -47,7 +47,7 @@ public class CampusTour extends MapActivity {
         setContentView(R.layout.map);
         
         try {
-			buildingList = BuildingParser.parse(getResources().getString(R.string.buildings));
+			buildingMap = BuildingParser.parse(getResources().getString(R.string.buildings));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -106,7 +106,7 @@ public class CampusTour extends MapActivity {
 	public void initMyItemizedOverlay() {
 		Drawable marker = this.getResources().getDrawable(android.R.drawable.radiobutton_off_background);
 		bio = new BuildingItemizedOverlay(marker, this);
-		for (Building b : buildingList) {
+		for (Building b : buildingMap.values()) {
 			bio.addBuilding(b);
 		}
 		map.getOverlays().add(bio);
