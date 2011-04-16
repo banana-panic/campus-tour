@@ -10,10 +10,13 @@ import static edu.ua.cs.campustour.MapConstants.RIGHT_LONG;
 import static edu.ua.cs.campustour.MapConstants.START_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
 
+import java.io.IOException;
 import java.util.Map;
 
 import org.json.JSONException;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -21,11 +24,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+
+import edu.ua.cs.campustour.Building.ButtonState;
 
 public class CampusTour extends MapActivity {
 	@SuppressWarnings("unused")
@@ -38,6 +48,7 @@ public class CampusTour extends MapActivity {
 	private DisplayMetrics dm;
 	private boolean follow = false;
 	private Map<String, Building> buildingMap;
+	private View popup;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -55,6 +66,68 @@ public class CampusTour extends MapActivity {
         initMapView();
         initMyLocationOverlay();
         initMyItemizedOverlay();
+        initPopup();
+    }
+    
+    public boolean showPopup(String id) {
+    	Building building = buildingMap.get(id);
+    	popup.setVisibility(View.GONE);
+    	if (building == null) return false;
+    	
+    	TextView t = (TextView) popup.findViewById(R.id.popup_name);
+    	t.setText(building.name);
+    	
+    	
+    	int[] buttonIds = {R.id.popup_textinfo, R.id.popup_image_gallery, R.id.popup_av_gallery};
+    	ButtonState[] states = {building.textInfoState, building.imagesState, building.avState};
+    	
+    	for (int i = 0; i < buttonIds.length; ++i) {
+	    	View button = popup.findViewById(buttonIds[i]);
+	    	switch (states[i]) {
+		    	case HIDDEN:
+		    		button.setVisibility(View.GONE);
+		    		break;
+		    	case ENABLED:
+		    		button.setVisibility(View.VISIBLE);
+			    	button.setEnabled(true);
+			    	break;
+		    	case DISABLED:
+		    		button.setVisibility(View.VISIBLE);
+			    	button.setEnabled(false);
+			    	break;
+	    	}
+    	}
+    	
+    	
+    	ImageView thumb = (ImageView) popup.findViewById(R.id.popup_thumb);
+    	if (building.showThumbnail) {
+	    	try {
+				Bitmap bm = BitmapFactory.decodeStream(this.getAssets().open("landmarks/"
+						+ building.id + "/thumbnail"));
+				thumb.setImageBitmap(bm);
+				thumb.setVisibility(View.VISIBLE);
+			} catch (IOException e) {
+				e.printStackTrace();
+				thumb.setVisibility(View.GONE);
+			}
+    	}
+    	else {
+    		thumb.setVisibility(View.GONE);
+    	}
+    	
+    	LayoutParams p = new MapView.LayoutParams(LayoutParams.WRAP_CONTENT,
+    			LayoutParams.WRAP_CONTENT,
+    			building.geoPoint,
+    			MapView.LayoutParams.BOTTOM | MapView.LayoutParams.CENTER_HORIZONTAL);
+    	
+    	popup.setLayoutParams(p);
+    	popup.setVisibility(View.VISIBLE);
+    	
+    	return true;
+    }
+    
+    public void hidePopup() {
+    	popup.setVisibility(View.GONE);
     }
 
 	@Override
@@ -110,6 +183,12 @@ public class CampusTour extends MapActivity {
 			bio.addBuilding(b);
 		}
 		map.getOverlays().add(bio);
+	}
+	
+	public void initPopup() {
+		this.popup = View.inflate(this, R.layout.map_popup, null);
+		this.popup.setVisibility(View.GONE);
+		map.addView(popup);
 	}
 	
 	public int scale(float dp) {

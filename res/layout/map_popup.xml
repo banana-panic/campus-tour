@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:orientation="horizontal"
+	android:background="@drawable/map_popup"
+	android:gravity="center"
+	>
+	
+	<ImageView
+  	android:id="@+id/popup_thumb"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	/>
+	
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center"
+	>
+		<TextView
+			android:id="@+id/popup_name"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:gravity="center_horizontal|center_vertical"
+			android:textColor="#000"
+		/>
+	
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+		>
+		 	<Button
+				android:id="@+id/popup_textinfo"
+			  	android:layout_height="wrap_content"
+			  	android:layout_width="wrap_content"
+			  	android:text="T"
+			/>
+		
+		 	<Button
+				android:id="@+id/popup_image_gallery"
+			  	android:layout_height="wrap_content"
+			  	android:layout_width="wrap_content"
+			  	android:text="I"
+			/>
+		
+		 	<Button
+			  	android:id="@+id/popup_av_gallery"
+			  	android:layout_height="wrap_content"
+			  	android:layout_width="wrap_content"
+			  	android:text="AV"
+			/>
+		</LinearLayout>
+	
+	</LinearLayout>
+
+</LinearLayout>
