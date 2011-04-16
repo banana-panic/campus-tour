@@ -1,5 +1,7 @@
 package edu.ua.cs.campustour;
 
+import com.google.android.maps.GeoPoint;
+
 public class Building {
 	
 	public static enum ButtonState {
@@ -15,6 +17,7 @@ public class Building {
 	public final ButtonState textInfoState;
 	public final ButtonState imagesState;
 	public final ButtonState avState;
+	public final GeoPoint geoPoint;
 	
 	Building(String name, String id, float lat, float lng,
 			boolean showThumbnail, ButtonState textInfoState, ButtonState imagesState, ButtonState avState) {
@@ -26,5 +29,7 @@ public class Building {
 		this.textInfoState = textInfoState;
 		this.imagesState = imagesState;
 		this.avState = avState;
+		this.geoPoint = new GeoPoint( Math.round(lat * 1000000), Math.round(lng * 1000000));
 	}
+	
 }
