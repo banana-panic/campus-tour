@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -25,8 +26,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +51,7 @@ public class CampusTour extends MapActivity {
 	private boolean follow = false;
 	private Map<String, Building> buildingMap;
 	private View popup;
+	private Building popupBuilding;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -71,6 +74,7 @@ public class CampusTour extends MapActivity {
     
     public boolean showPopup(String id) {
     	Building building = buildingMap.get(id);
+    	this.popupBuilding = building;
     	popup.setVisibility(View.GONE);
     	if (building == null) return false;
     	
@@ -188,6 +192,8 @@ public class CampusTour extends MapActivity {
 	public void initPopup() {
 		this.popup = View.inflate(this, R.layout.map_popup, null);
 		this.popup.setVisibility(View.GONE);
+		Button b = (Button) popup.findViewById(R.id.popup_textinfo);
+		b.setOnClickListener(new TextInfoButtonListener());
 		map.addView(popup);
 	}
 	
@@ -198,4 +204,15 @@ public class CampusTour extends MapActivity {
 	public boolean getFollow() { return follow; }
 	
 	public void setFollow(boolean bool) { follow = bool; }
+	
+	private class TextInfoButtonListener implements OnClickListener {
+
+		public void onClick(View v) {
+			Intent intent = new Intent(CampusTour.this, TextInfo.class);
+			intent.putExtra("id", popupBuilding.id);
+			intent.putExtra("name", popupBuilding.name);
+			startActivity(intent);
+		}
+		
+	}
 }

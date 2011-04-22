@@ -24,8 +24,8 @@ public class BuildingParser {
 	}
 	
 	private static Building makeBuilding(JSONObject json) throws JSONException {
-		return new Building(json.optString("name", "Unnamed Building"),
-				json.getString("id"),
+		return new Building(json.getString("id"),
+				json.optString("name", "Unnamed Building"),
 				(float) json.getDouble("lat"),
 				(float) json.getDouble("long"),
 				json.getBoolean("thumbnail"),

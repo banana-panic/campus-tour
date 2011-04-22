@@ -15,8 +15,6 @@ public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	
 	private ArrayList<BuildingOverlayItem> items = new ArrayList<BuildingOverlayItem>();
 	private CampusTour tour;
-	private boolean moved = false;
-	private long originTime;
 	private float originX;
 	private float originY;
 	private float maxDist = 0;
@@ -29,7 +27,7 @@ public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	
 	//called by populate();
 	@Override
-	protected OverlayItem createItem(int i) { return items.get(i); }
+	protected BuildingOverlayItem createItem(int i) { return items.get(i); }
 	
 	@Override
 	public int size() { return items.size(); }
@@ -76,4 +74,5 @@ public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 		items.add(new BuildingOverlayItem(added));
 		populate();
 	}
+	
 }

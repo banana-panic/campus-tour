@@ -3,6 +3,7 @@
 	<string name="buildings">
 	{\"buildings\": [
 		{
+			\"id\": \"houser\",
 			\"name\": \"Houser Hall\",
 			\"lat\": 33.214348,
 			\"long\": -87.544743,
@@ -13,6 +14,7 @@
 			\"av\": "enabled"
 		},
 		{
+			\"id\": \"hardaway\",
 			\"name\": \"Hardaway Hall\",
 			\"lat\": 33.213275,
 			\"long\": -87.544947,

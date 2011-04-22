@@ -19,12 +19,12 @@ public class Building {
 	public final ButtonState avState;
 	public final GeoPoint geoPoint;
 	
-	Building(String name, String id, float lat, float lng,
+	Building(String id, String name, float lat, float lng,
 			boolean showThumbnail, ButtonState textInfoState, ButtonState imagesState, ButtonState avState) {
+		this.id = id;		
 		this.name = name;
 		this.lat = lat;
 		this.lng = lng;
-		this.id = id;
 		this.showThumbnail = showThumbnail;
 		this.textInfoState = textInfoState;
 		this.imagesState = imagesState;
