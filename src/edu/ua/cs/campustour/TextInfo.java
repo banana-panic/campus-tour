@@ -1,7 +1,9 @@
 package edu.ua.cs.campustour;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.graphics.BitmapFactory;
@@ -31,19 +33,12 @@ public class TextInfo extends Activity {
 		ScrollView sv = (ScrollView)findViewById(R.id.infoview);
 		TextView title = (TextView)findViewById(R.id.title);
         TextView info = (TextView)findViewById(R.id.info);
-        
         title.setText(titleText);
 		
 		try {
             InputStream is = getAssets().open(rootdir+"info");
             
-            int size = is.available();
-            
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            
-            String text = new String(buffer);
+            String text = readStream(is);
             
             info.setText(text);
             if(bg == null) {
@@ -57,6 +52,19 @@ public class TextInfo extends Activity {
         }
 
         sv.setPadding(0, h/8, 0, 0);
+	}
+	
+	String readStream(InputStream is) throws IOException {
+		StringBuffer stringBuf = new StringBuffer(1024);
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		char[] buf = new char[1024];
+		int numRead = 0;
+		while ((numRead = br.read(buf)) != -1) {
+			String readData = String.valueOf(buf, 0, numRead);
+			stringBuf.append(readData);
+			buf = new char[1024];
+		}
+		return stringBuf.toString();
 	}
 	
 	
