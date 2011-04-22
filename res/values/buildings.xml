@@ -8,9 +8,9 @@
 			\"lat\": 33.217207, 
 			\"long\": -87.545237,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Amelia Gorgas Library\",
@@ -18,9 +18,9 @@
 			\"lat\": 33.211776,
 			\"long\": -87.545950,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - BB Comer Hall\",
@@ -28,9 +28,9 @@
 			\"lat\": 33.213558,
 			\"long\":  -87.546970,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Bryant-Denny Stadium\",
@@ -38,9 +38,9 @@
 			\"lat\": 33.207723, 
 			\"long\": -87.550328,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "enabled"
+			\"av\": "enabled"
 		},
 		{
 			\"id\": \"ID - Bureau of Mines\",
@@ -48,9 +48,9 @@
 			\"lat\": 33.212355,
 			\"long\": -87.544701,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Clark Hall\",
@@ -58,9 +58,9 @@
 			\"lat\": 33.212530,
 			\"long\": -87.545854,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Denny Chimes\",
@@ -68,9 +68,9 @@
 			\"lat\": 33.209909,
 			\"long\": -87.546310,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Ferguson Student Center\",
@@ -78,9 +78,9 @@
 			\"lat\": 33.214608,
 			\"long\": -87.545618,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Gallalee Hall\",
@@ -88,9 +88,9 @@
 			\"lat\": 33.209541,
 			\"long\": -87.543869,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Garland Hall\",
@@ -98,9 +98,9 @@
 			\"lat\": 33.212544,
 			\"long\": -87.545441,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - H M Comer Hall\",
@@ -108,9 +108,9 @@
 			\"lat\": 33.215600,
 			\"long\": -87.544207,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Hardaway Hall\",
@@ -118,9 +118,9 @@
 			\"lat\": 33.213271,
 			\"long\": -87.544668,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Houser Hall\",
@@ -128,9 +128,9 @@
 			\"lat\": 33.214357,
 			\"long\": -87.544523,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - John T Oliver\",
@@ -138,9 +138,9 @@
 			\"lat\": 33.211924,
 			\"long\": -87.547088,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Lloyd Hall\",
@@ -148,9 +148,9 @@
 			\"lat\": 33.211027,
 			\"long\": -87.543783,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Manly Hall\",
@@ -158,9 +158,9 @@
 			\"lat\": 33.212607,
 			\"long\": -87.546315,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},
 		{
 			\"id\": \"ID - Nott Hall\",
@@ -168,9 +168,9 @@
 			\"lat\": 33.210336, 
 			\"long\": -87.543837,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},	
 		{
 			\"id\": \"ID - Presidents Mansion\",
@@ -178,9 +178,9 @@
 			\"lat\": 33.208769, 
 			\"long\": -87.546460,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},	
 		{
 			\"id\": \"ID - Rogers Library\",
@@ -188,9 +188,9 @@
 			\"lat\": 33.213500, 
 			\"long\": -87.542732,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},	
 		{
 			\"id\": \"ID - Shelby Hall\",
@@ -198,9 +198,9 @@
 			\"lat\": 33.215012, 
 			\"long\": -87.542367,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},	
 		{
 			\"id\": \"ID - Smith Hall\",
@@ -208,9 +208,9 @@
 			\"lat\": 33.211875, 
 			\"long\": -87.543885,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},	
 		{
 			\"id\": \"ID - Tom Bevill\",
@@ -218,9 +218,9 @@
 			\"lat\": 33.216560, 
 			\"long\": -87.543890,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		},	
 		{
 			\"id\": \"ID - Woods Hall\",
@@ -228,9 +228,9 @@
 			\"lat\": 33.213316, 
 			\"long\": -87.545763,
 			\"thumbnail\":true,
-			\"textinfo\": "enabled",
+			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"AV\": "disabled"
+			\"av\": "disabled"
 		}
 	] }
 	</string>
