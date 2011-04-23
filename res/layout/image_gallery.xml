@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
+	
+	<ImageSwitcher
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:inAnimation="@android:anim/fade_in"
+	android:outAnimation="@android:anim/fade_out"
+	android:layout_above="@+id/gallery_filmstrip"
+	android:gravity="center"
+	android:id="@+id/gallery_switcher" />
+	
+	<Gallery 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="10dp"
+	android:spacing="10dp"
+	android:gravity="center"
+	android:layout_alignParentBottom="true"
+	android:id="@id/gallery_filmstrip" />
+</RelativeLayout>
