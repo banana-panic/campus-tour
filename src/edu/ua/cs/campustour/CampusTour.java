@@ -27,15 +27,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MapView.LayoutParams;
 
 import edu.ua.cs.campustour.Building.ButtonState;
 
@@ -81,21 +83,24 @@ public class CampusTour extends MapActivity {
     	TextView t = (TextView) popup.findViewById(R.id.popup_name);
     	t.setText(building.name);
     	
-    	
     	int[] buttonIds = {R.id.popup_textinfo, R.id.popup_image_gallery, R.id.popup_av_gallery};
     	ButtonState[] states = {building.textInfoState, building.imagesState, building.avState};
     	
     	for (int i = 0; i < buttonIds.length; ++i) {
-	    	View button = popup.findViewById(buttonIds[i]);
+	    	ImageButton button = (ImageButton) popup.findViewById(buttonIds[i]);
+	    	ViewGroup.LayoutParams lp = button.getLayoutParams();
 	    	switch (states[i]) {
 		    	case HIDDEN:
-		    		button.setVisibility(View.GONE);
+		    		lp.width = 0;
+		    		button.setVisibility(View.INVISIBLE);
 		    		break;
 		    	case ENABLED:
+			    	lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
 		    		button.setVisibility(View.VISIBLE);
 			    	button.setEnabled(true);
 			    	break;
 		    	case DISABLED:
+			    	lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
 		    		button.setVisibility(View.VISIBLE);
 			    	button.setEnabled(false);
 			    	break;
@@ -108,15 +113,18 @@ public class CampusTour extends MapActivity {
 	    	try {
 				Bitmap bm = BitmapFactory.decodeStream(this.getAssets().open("landmarks/"
 						+ building.id + "/thumbnail"));
+				thumb.getLayoutParams().width = scale(80);
 				thumb.setImageBitmap(bm);
 				thumb.setVisibility(View.VISIBLE);
 			} catch (IOException e) {
 				e.printStackTrace();
-				thumb.setVisibility(View.GONE);
+				thumb.getLayoutParams().width = 0;
+				thumb.setVisibility(View.INVISIBLE);
 			}
     	}
     	else {
-    		thumb.setVisibility(View.GONE);
+			thumb.getLayoutParams().width = 0;
+    		thumb.setVisibility(View.INVISIBLE);
     	}
     	
     	LayoutParams p = new MapView.LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -192,7 +200,7 @@ public class CampusTour extends MapActivity {
 	public void initPopup() {
 		this.popup = View.inflate(this, R.layout.map_popup, null);
 		this.popup.setVisibility(View.GONE);
-		Button b = (Button) popup.findViewById(R.id.popup_textinfo);
+		ImageButton b = (ImageButton) popup.findViewById(R.id.popup_textinfo);
 		b.setOnClickListener(new TextInfoButtonListener());
 		map.addView(popup);
 	}

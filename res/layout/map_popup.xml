@@ -1,60 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="wrap_content"
+	android:layout_height="100dp"
 	android:layout_width="wrap_content"
-	android:orientation="horizontal"
 	android:background="@drawable/map_popup"
-	android:gravity="center"
 	>
 	
 	<ImageView
-  	android:id="@+id/popup_thumb"
-	android:layout_height="wrap_content"
-	android:layout_width="wrap_content"
+	  	android:id="@+id/popup_thumb"
+		android:layout_height="80dp"
+		android:layout_width="80dp"
+		android:adjustViewBounds="true"
+		android:scaleType="centerCrop"
+		android:padding="5dp"
 	/>
 	
-	<LinearLayout
+	<TextView
+		android:id="@+id/popup_name"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:orientation="vertical"
+		android:textColor="#000"
 		android:gravity="center"
-	>
-		<TextView
-			android:id="@+id/popup_name"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:gravity="center_horizontal|center_vertical"
-			android:textColor="#000"
-		/>
-	
-		<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:orientation="horizontal"
-		>
-		 	<Button
-				android:id="@+id/popup_textinfo"
-			  	android:layout_height="wrap_content"
-			  	android:layout_width="wrap_content"
-			  	android:text="T"
-			/>
-		
-		 	<Button
-				android:id="@+id/popup_image_gallery"
-			  	android:layout_height="wrap_content"
-			  	android:layout_width="wrap_content"
-			  	android:text="I"
-			/>
-		
-		 	<Button
-			  	android:id="@+id/popup_av_gallery"
-			  	android:layout_height="wrap_content"
-			  	android:layout_width="wrap_content"
-			  	android:text="AV"
-			/>
-		</LinearLayout>
-	
-	</LinearLayout>
+		android:layout_margin="5dp"
+		android:maxLines="1"
+		android:layout_toRightOf="@id/popup_thumb"
+		android:layout_alignTop="@id/popup_thumb"
+		android:layout_alignRight="@+id/popup_av_gallery"
+	/>
 
-</LinearLayout>
+ 	<ImageButton
+		android:id="@+id/popup_textinfo"
+	  	android:layout_height="wrap_content"
+	  	android:layout_width="wrap_content"
+	  	android:src="@drawable/ic_menu_info_details"
+	  	android:padding="5dp"
+		android:gravity="center_horizontal"
+	  	android:adjustViewBounds="true"
+	  	android:scaleType="centerInside"
+	  	android:layout_below="@id/popup_name"
+	  	android:layout_toRightOf="@id/popup_thumb"
+	  	android:layout_alignBottom="@id/popup_thumb"
+	/>
+
+ 	<ImageButton
+		android:id="@+id/popup_image_gallery"
+	  	android:layout_height="wrap_content"
+	  	android:layout_width="wrap_content"
+	  	android:src="@drawable/ic_menu_gallery"
+	  	android:padding="5dp"
+		android:gravity="center_horizontal"
+	  	android:adjustViewBounds="true"
+	  	android:scaleType="centerInside"
+	  	android:layout_below="@id/popup_name"
+	  	android:layout_toRightOf="@id/popup_textinfo"
+	  	android:layout_alignBottom="@id/popup_textinfo"
+	/>
+
+ 	<ImageButton
+	  	android:id="@id/popup_av_gallery"
+	  	android:layout_height="wrap_content"
+	  	android:layout_width="wrap_content"
+	  	android:src="@drawable/ic_menu_play_clip"
+	  	android:padding="5dp"
+		android:gravity="center_horizontal"
+	  	android:adjustViewBounds="true"
+	  	android:scaleType="centerInside"
+	  	android:layout_below="@id/popup_name"
+	  	android:layout_toRightOf="@id/popup_image_gallery"
+	  	android:layout_alignBottom="@id/popup_image_gallery"
+	/>
+
+</RelativeLayout>

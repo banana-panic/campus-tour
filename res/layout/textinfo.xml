@@ -4,7 +4,8 @@
 	android:layout_height="fill_parent"
 	android:layout_width="fill_parent"
 	android:fadingEdge="vertical"
-	android:fadingEdgeLength="80dp">
+	android:fadingEdgeLength="80dp"
+	android:scrollbars="none">
 	<LinearLayout
 		android:layout_height="fill_parent"
 		android:layout_width="fill_parent"
