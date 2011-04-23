@@ -220,7 +220,6 @@ public class CampusTour extends MapActivity {
 		public void onClick(View v) {
 			Intent intent = new Intent(CampusTour.this, TextInfo.class);
 			intent.putExtra("id", popupBuilding.id);
-			intent.putExtra("name", popupBuilding.name);
 			startActivity(intent);
 		}
 		

@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/infoview"
-	android:layout_height="fill_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	android:fadingEdge="vertical"
-	android:fadingEdgeLength="80dp"
-	android:scrollbars="none">
-	<LinearLayout
+	android:layout_height="fill_parent"
+	>
+	<ImageView
+		android:id="@+id/infoviewbg"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:scaleType="centerCrop"
+	/>
+	<ImageView
+		android:id="@+id/infoviewmask"
+		android:src="@drawable/whitemask"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+	/>
+	<ScrollView 
+		android:id="@+id/infoview"
 		android:layout_height="fill_parent"
 		android:layout_width="fill_parent"
-		android:orientation="vertical">
-		<TextView
-			android:id="@+id/title"
+		android:fadingEdge="vertical"
+		android:fadingEdgeLength="80dp"
+		android:scrollbars="none">
+		<LinearLayout
 			android:layout_height="fill_parent"
 			android:layout_width="fill_parent"
-			android:textColor="#000"
-			android:padding="10dp"
-			android:textSize="25sp"
-			android:textStyle="bold"
-			android:gravity="center_horizontal"
-			android:maxLines="1" />
-		<TextView
-			android:id="@+id/info"
-			android:layout_height="fill_parent"
-			android:layout_width="fill_parent"
-			android:textColor="#000"
-			android:padding="20dp"
-			android:textSize="16sp"
-			android:gravity="center_horizontal"/>
-	</LinearLayout>
-</ScrollView>
+			android:orientation="vertical">
+			<TextView
+				android:id="@+id/title"
+				android:layout_height="fill_parent"
+				android:layout_width="fill_parent"
+				android:textColor="#000"
+				android:padding="10dp"
+				android:textSize="25sp"
+				android:textStyle="bold"
+				android:gravity="center_horizontal"
+				android:maxLines="1" />
+			<TextView
+				android:id="@+id/info"
+				android:layout_height="fill_parent"
+				android:layout_width="fill_parent"
+				android:textColor="#000"
+				android:padding="20dp"
+				android:textSize="16sp"
+				android:gravity="center_horizontal"/>
+		</LinearLayout>
+	</ScrollView>
 
+</FrameLayout>
