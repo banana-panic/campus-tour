@@ -1,14 +1,18 @@
 package edu.ua.cs.campustour;
 
 import java.io.IOException;
-import java.util.Vector;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -28,22 +32,51 @@ public class ImagesActivity extends Activity implements ImageSwitcher.ViewFactor
 	private String id;
 	private final String TAG = "ImagesActivity";
 	private DisplayMetrics dm;
+	private int lock;
+	private Thread switcherThread = null;
+	
+	public static enum ImageType {LOCAL, REMOTE};
+	
+	private class OrientationState {
+		public final Object adapterState;
+		public final String id;
+		public OrientationState(Object adapterState, String id) {
+			this.adapterState = adapterState;
+			this.id = id;
+		}
+	}
+	
+	public class ImageInfo {
+		public final String name;
+		public final String path;
+		public final ImageType type;
+		
+		public ImageInfo(String name, ImageType type, String path) {
+			this.name = name;
+			this.path = path;
+			this.type = type;
+		}
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.d(TAG, "onCreate");
-		this.id = this.getIntent().getExtras().getString("id");
+		
 		this.setContentView(R.layout.image_gallery);
-		
-        dm = this.getResources().getDisplayMetrics();
-		
 		switcher = (ImageSwitcher) this.findViewById(R.id.gallery_switcher);
 		gallery = (Gallery) this.findViewById(R.id.gallery_filmstrip);
-		
 		switcher.setFactory(this);
+        dm = this.getResources().getDisplayMetrics();
 		
-		initImageAdapter();
+		OrientationState os = (OrientationState) getLastNonConfigurationInstance();
+		if (os != null) {
+			this.id = os.id;
+			ia = new ImageAdapter(os.adapterState);
+		}
+		else {
+			this.id = this.getIntent().getExtras().getString("id");
+			initImageAdapter();
+		}
 		gallery.setAdapter(ia);
 		gallery.setOnItemSelectedListener(ia);
 	}
@@ -53,73 +86,95 @@ public class ImagesActivity extends Activity implements ImageSwitcher.ViewFactor
 	}
 	
 	private void initImageAdapter() {
-		ia = new ImageAdapter(id);
+		ia = new ImageAdapter();
 	}
 	
 	private class ImageAdapter extends BaseAdapter implements AdapterView.OnItemSelectedListener {
-		private Vector<Bitmap> bitmaps;
 		private Bitmap placeholder = null;
+		private List<String> names;
+		private Map<String, ImageInfo> sources;
+		private Map<String, Bitmap> thumbnails;
 		
-		public ImageAdapter(String buildingId) {
-			Log.d(TAG, "Constructing Adapter");
+		public ImageAdapter() {
 			AssetManager am = getAssets();
-			String [] paths = null;
+			String[] paths = null;
 			try {
-				paths = am.list("landmarks/" + buildingId + "/images");
-				bitmaps = new Vector<Bitmap>(paths.length);
-				for (int i=0; i < paths.length; i++) {
-					bitmaps.add(null);
-				}
+				paths = am.list("landmarks/" + id + "/images");
 			} catch (IOException e) {
-				bitmaps = new Vector<Bitmap>();
 				e.printStackTrace();
 			}
-	
-			Log.d(TAG, "Path count: " + paths.length);
-
+			
+			String urlJson = readJson();
+			
+			List<ImageInfo> urlInfos = ImageUrlParser.parse(urlJson);
+			
+			int imageCount = urlInfos.size() + paths.length;
+			names = new ArrayList<String>(imageCount);
+			sources = new HashMap<String, ImageInfo>(imageCount);
+			thumbnails = new HashMap<String, Bitmap>(imageCount);
+			
+			String[] fullPaths = new String[paths.length];
+			
 			for (int i = 0; i < paths.length; i++) {
-				Log.d(TAG, "path: " + paths[i]);
-				new Thread(new DiskImageFetcher(i, paths[i])).start();
+				String path = paths[i];
+				String fullPath = "landmarks/" + id + "/images/" + path;
+				fullPaths[i] = fullPath;
+				names.add(path);
+				sources.put(path, new ImageInfo(path, ImageType.LOCAL, fullPath));
 			}
+			
+			for (ImageInfo i : urlInfos) {
+				names.add(i.name);
+				sources.put(i.name, i);
+			}
+			
+			Collections.sort(names);
 	
 			try {
 				placeholder = BitmapFactory.decodeStream(am.open("placeholder"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Log.d(TAG, "Finshed Constructing Adapter");
+			
+			new Thread(new DiskThumbnailBuilder(paths, fullPaths)).start();
 	
 		}
 		
-		private class SetImageTask extends AsyncTask<Integer, Object, BitmapDrawable> {
-
-			@Override
-			protected BitmapDrawable doInBackground(Integer... params) {
-				int index = params[0];
-				Bitmap bm = null;
-				try {
-					for(int i = 0; i < 10 && bm == null; Thread.sleep(15), i++) bm = bitmaps.get(index);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				bm = (bm == null? placeholder : bm);
-				return new BitmapDrawable(bm);
-			}
-			
-			@Override
-			protected void onPostExecute(BitmapDrawable drawable) {
-				switcher.setImageDrawable(drawable);
-			}
-			
+		public ImageAdapter(Object state) {
+			OrientationState os = (OrientationState) state; 
+			this.placeholder = os.placeholder;
+			this.thumbnails = os.thumbnails;
+			this.names = os.names;
+			this.sources = os.sources;
 		}
-
+		
+		public Object getOrientationState() {
+			return new OrientationState(placeholder, names, sources, thumbnails);
+		}
+		
+		private class OrientationState {
+			public final Bitmap placeholder;
+			public final List<String> names;
+			public final Map<String, ImageInfo> sources;
+			public final Map<String, Bitmap> thumbnails;
+			
+			public OrientationState(Bitmap placeholder, List<String> names,
+					Map<String, ImageInfo> sources, Map<String, Bitmap> thumbnails) {
+				this.placeholder = placeholder;
+				this.names = names;
+				this.sources = sources;
+				this.thumbnails = thumbnails;
+			}
+		}
+		
+		
 		public int getCount() {
-			Log.d(TAG, "size: " + bitmaps.size());
-			return bitmaps.size();
+			return thumbnails.entrySet().size();
 		}
 
 		public Object getItem(int position) {
-			return bitmaps.get(position);
+			String name = names.get(position);
+			return thumbnails.get(name);
 		}
 
 		public long getItemId(int position) {
@@ -132,72 +187,73 @@ public class ImagesActivity extends Activity implements ImageSwitcher.ViewFactor
 				convertView = new ImageView(ImagesActivity.this);
 			}
 			ImageView i = (ImageView) convertView;
-			Bitmap bm = bitmaps.get(position);
+			String name = names.get(position);
+			Bitmap bm = thumbnails.get(name);
 			i.setImageBitmap(bm == null ? placeholder : bm);
             i.setLayoutParams(new Gallery.LayoutParams(Gallery.LayoutParams.WRAP_CONTENT, scale(60)));
             i.setAdjustViewBounds(true);
-			Log.d(TAG, "getView Returning");
 			return i;
 		}
-	
-		private class DiskImageFetcher implements Runnable {
-			private int position;
-			String path;
-	
-			public DiskImageFetcher(int position, String path) {
-				this.path = path;
-				this.position = position;
+		
+		private class DiskThumbnailBuilder implements Runnable {
+			private String[] names;
+			private String[] paths;
+			
+			public DiskThumbnailBuilder(String[] names, String[] paths) {
+				this.names = names;
+				this.paths = paths;
 			}
-
 			public void run() {
-				String fullPath = "landmarks/" + id + "/images/" + path;
-				try {
-					Log.d(TAG, "Begin loading bitmap: " + fullPath);
-					Bitmap bm = BitmapFactory.decodeStream(getAssets().open(fullPath));
-					runOnUiThread(new ImagePoster(position, bm));
-					Log.d(TAG, "Finished loading bitmap: " + fullPath);
-				} catch (IOException e) {
-					e.printStackTrace();
-					Log.d(TAG, "failed loading bitmap: " + fullPath);
+				AssetManager am = getAssets();
+				for(int i = 0; i < names.length; i++) {
+					try {
+						Bitmap orig = null;
+						Bitmap scaled = null;
+						InputStream is = am.open(paths[i]);
+						orig = BitmapFactory.decodeStream(is);
+						is.close();
+						int width = Math.round(orig.getWidth() * (float) scale(60) / orig.getHeight());
+						scaled = Bitmap.createScaledBitmap(orig, width, scale(60), false);
+						orig.recycle();
+						runOnUiThread(new ThumbnailPoster(names[i], scaled));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-			}
-	
-		}
-	
-		private class NetImageFetcher implements Runnable {
-	
-			public void run() {
 				
 			}
 			
 		}
 		
-		private class ImagePoster implements Runnable {
+		private class ThumbnailPoster implements Runnable {
 			
+			private String name;
 			private Bitmap bm;
-			private int position;
 			
-			public ImagePoster(int position, Bitmap bm) {
+			public ThumbnailPoster(String name, Bitmap bm) {
+				this.name = name;
 				this.bm = bm;
-				this.position = position;
 			}
 			
 			public void run() {
-				bitmaps.set(position, bm);
+				thumbnails.put(name, bm);
 				ImageAdapter.this.notifyDataSetChanged();
 			}
 			
 		}
 
 		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			Bitmap bm = bitmaps.get(position);
-			if (bm == null) {
-				new SetImageTask().execute(position);
+			String name = names.get(position);
+			ImageInfo i = sources.get(name);
+			String path = i.path;
+			Bitmap thumbnail = thumbnails.get(name);
+			lock++;
+			if (ImagesActivity.this.switcherThread != null) {
+				ImagesActivity.this.switcherThread.interrupt();
 			}
-			else {
-				BitmapDrawable drawable = new BitmapDrawable(bm);
-				switcher.setImageDrawable(drawable);
-			}
+			ImagesActivity.this.switcherThread =
+				new Thread(new DiskSwitcherSetter(path, lock, thumbnail));
+			ImagesActivity.this.switcherThread.start();
 		}
 
 		public void onNothingSelected(AdapterView<?> parent) {
@@ -213,4 +269,77 @@ public class ImagesActivity extends Activity implements ImageSwitcher.ViewFactor
 		return i;
 	}
 	
+	private String readJson() {
+		return "";
+	}
+	
+	private class DiskSwitcherSetter implements Runnable {
+		private String path;
+		private int lock;
+		Bitmap thumbnail;
+		
+		public DiskSwitcherSetter(String path, int lock, Bitmap thumbnail) {
+			this.path = path;
+			this.lock = lock;
+			this.thumbnail = thumbnail;
+		}
+		
+		public void run() {
+			runOnUiThread(new SwitcherPoster(thumbnail, lock, false));
+			try {
+				InputStream is = getAssets().open(path);
+				Bitmap fullSize = BitmapFactory.decodeStream(is);
+				is.close(); 
+				int viewHeight = switcher.getHeight();
+				int viewWidth = switcher.getWidth();
+				
+				int bmHeight = fullSize.getHeight();
+				int bmWidth = fullSize.getWidth();
+				
+				boolean port = (viewHeight / (float) bmHeight) * bmWidth < viewWidth;
+				
+				int scaledHeight = (port ? viewHeight :
+					Math.round(bmHeight * viewWidth / (float) bmWidth));
+				int scaledWidth = (port ? Math.round(bmWidth * viewHeight / (float) bmHeight) :
+					viewWidth);
+				
+				Bitmap resized = Bitmap.createScaledBitmap(fullSize, scaledWidth, scaledHeight, true);
+				
+				fullSize.recycle();
+				
+				runOnUiThread(new SwitcherPoster(resized, lock, true));
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	private class SwitcherPoster implements Runnable {
+		private Bitmap bm;
+		private int lock;
+		private boolean canRecycle;
+
+		public SwitcherPoster(Bitmap bm, int lock, boolean canRecyle) {
+			this.bm = bm;
+			this.lock = lock;
+			this.canRecycle = canRecyle;
+		}
+		public void run() {
+			if (ImagesActivity.this.lock == lock) {
+				switcher.setImageDrawable(new BitmapDrawable(bm));
+			}
+			else if (canRecycle){
+				bm.recycle();
+			}
+		}
+		
+	}
+	
+	@Override
+	public Object onRetainNonConfigurationInstance() {
+		Object adapterState = ia.getOrientationState();
+		return new OrientationState(adapterState, id);
+	}	
 }
