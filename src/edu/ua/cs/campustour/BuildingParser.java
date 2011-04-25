@@ -1,7 +1,6 @@
 package edu.ua.cs.campustour;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,10 +11,10 @@ import edu.ua.cs.campustour.Building.ButtonState;
 
 public class BuildingParser {
 	
-	public static Map<String, Building> parse(String s) throws JSONException {
+	public static HashMap<String, Building> parse(String s) throws JSONException {
 		JSONObject json = new JSONObject(new JSONTokener(s));
 		JSONArray arr = json.getJSONArray("buildings");
-		Map<String, Building> map = new HashMap<String, Building>();
+		HashMap<String, Building> map = new HashMap<String, Building>();
 		for (int rem = arr.length() - 1; rem >= 0; rem--) {
 			Building b = makeBuilding(arr.getJSONObject(rem));
 			map.put(b.id, b);

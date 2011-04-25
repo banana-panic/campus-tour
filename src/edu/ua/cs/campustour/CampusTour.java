@@ -11,7 +11,7 @@ import static edu.ua.cs.campustour.MapConstants.START_ZOOM;
 import static edu.ua.cs.campustour.MapConstants.TOP_LAT;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.HashMap;
 
 import org.json.JSONException;
 
@@ -30,7 +30,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
@@ -42,7 +41,6 @@ import com.google.android.maps.MapView.LayoutParams;
 import edu.ua.cs.campustour.Building.ButtonState;
 
 public class CampusTour extends MapActivity {
-	@SuppressWarnings("unused")
 	private static final String TAG = "CampusTourActivity";
 	private MapView map;
 	private RestricterOverlay restricter = new RestricterOverlay(this, LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
@@ -51,7 +49,7 @@ public class CampusTour extends MapActivity {
 	private BuildingItemizedOverlay bio;
 	private DisplayMetrics dm;
 	private boolean follow = false;
-	private Map<String, Building> buildingMap;
+	private HashMap<String, Building> buildingMap;
 	private View popup;
 	private Building popupBuilding;
 	
@@ -156,6 +154,7 @@ public class CampusTour extends MapActivity {
 	
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		Log.d(TAG, "In onMenuItemSelected()");
 		switch (item.getItemId()) {
 		case R.id.followbutton:
 			setFollow(true);
@@ -165,12 +164,25 @@ public class CampusTour extends MapActivity {
 			mlo.disableCompass();
 			finish();
 			break;
+		case R.id.searchbutton:
+			Log.d(TAG, "In case searchbutton");
+			onSearchRequested();
+			break;
 		default:
 			Log.d(TAG, "Unexpected MenuItem");
 		}
 			
 		return true;
 	}
+	
+/*	@Override
+	public boolean onSearchRequested() {
+		Log.d(TAG, "In onSearchRequested()");
+		Bundle appData = new Bundle();
+		appData.putSerializable(SearchableActivity.Map, buildingMap);
+		startSearch(null, false, appData, false);
+		return true;
+	}*/
 	
 	public void initMapView() {
 		map = (MapView) findViewById(R.id.map);
