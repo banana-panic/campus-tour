@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
-	 android:id="@+id/followbutton"
+	 android:id="@+id/map_menu_follow"
 	 android:title="@string/follow"
 	 android:icon="@android:drawable/ic_menu_mylocation" />
 	<item
-	 android:id="@+id/exitbutton"
+	 android:id="@+id/map_menu_exit"
 	 android:title="@string/exit"
 	 android:icon="@android:drawable/ic_menu_close_clear_cancel"/>
 	<item
-	 android:id="@+id/searchbutton"
-	 android:title="@string/search"
-	 android:icon="@android:drawable/ic_menu_search" />
+	 android:id="@+id/map_menu_list"
+	 android:title="@string/buildinglist"
+	 android:icon="@android:drawable/ic_menu_sort_alphabetically" />
 </menu>

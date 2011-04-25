@@ -7,4 +7,5 @@
     <string name="search">Search</string>
     <string name="label">Campus Tour</string>
     <string name="hint">Search for buildings and landmarks</string>
+    <string name="buildinglist">Building List</string>
 </resources>

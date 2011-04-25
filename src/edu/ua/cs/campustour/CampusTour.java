@@ -159,15 +159,15 @@ public class CampusTour extends MapActivity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		Log.d(TAG, "In onMenuItemSelected()");
 		switch (item.getItemId()) {
-		case R.id.followbutton:
+		case R.id.map_menu_follow:
 			setFollow(true);
 			break;
-		case R.id.exitbutton:
+		case R.id.map_menu_exit:
 			mlo.disableMyLocation();
 			mlo.disableCompass();
 			finish();
 			break;
-		case R.id.searchbutton:
+		case R.id.map_menu_list:
 			Log.d(TAG, "In case searchbutton");
 			launchSearchableActivity(false);
 			break;
