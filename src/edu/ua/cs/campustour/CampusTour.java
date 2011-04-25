@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -192,9 +193,11 @@ public class CampusTour extends MapActivity {
 	}
 	
 	public void onActivityResult(int request, int result, Intent intent) {
-		String id = intent.getStringExtra("id");
-		centerOn(id);
-		showPopup(id);
+		if (result != Activity.RESULT_CANCELED) {
+			String id = intent.getStringExtra("id");
+			centerOn(id);
+			showPopup(id);
+		}
 	}
 	
 	public void centerOn(String id) {
