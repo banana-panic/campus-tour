@@ -21,7 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class SearchableActivity extends Activity {
+public class BuildingList extends Activity {
 	public static final String Map = "map";
 	public static final String ShowSearchBox = "searchbox";
 	private HashMap<String, Building> buildingMap;
@@ -34,7 +34,7 @@ public class SearchableActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.search);
 	    
-	    Log.d(TAG, "In SearchableActivity");
+	    Log.d(TAG, "In BuildingList");
 
 	    Intent intent = getIntent();
 	    buildingMap = (HashMap<String, Building>) intent.getSerializableExtra(Map);
@@ -128,7 +128,7 @@ public class SearchableActivity extends Activity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			TextView tv;
 			if (convertView == null) {
-				tv = (TextView) View.inflate(SearchableActivity.this, R.layout.list_item, null);
+				tv = (TextView) View.inflate(BuildingList.this, R.layout.list_item, null);
 			} else {
 				tv = (TextView) convertView;
 			}

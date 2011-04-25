@@ -186,9 +186,9 @@ public class CampusTour extends MapActivity {
 	}
 	
 	public void launchSearchableActivity(boolean searchBox) {
-		Intent intent = new Intent(this, SearchableActivity.class);
-		intent.putExtra(SearchableActivity.ShowSearchBox, searchBox);
-		intent.putExtra(SearchableActivity.Map, buildingMap);
+		Intent intent = new Intent(this, BuildingList.class);
+		intent.putExtra(BuildingList.ShowSearchBox, searchBox);
+		intent.putExtra(BuildingList.Map, buildingMap);
 		startActivityForResult(intent, CampusTour.SearchRequestCode);
 	}
 	
