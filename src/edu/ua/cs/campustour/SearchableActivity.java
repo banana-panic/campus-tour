@@ -76,6 +76,9 @@ public class SearchableActivity extends Activity {
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.buildinglist_reset:
+			ba.searchFor("");
+			break;
 		case R.id.buildinglist_searchbutton:
 			onSearchRequested();
 			break;
@@ -109,7 +112,7 @@ public class SearchableActivity extends Activity {
 			Collections.sort(current);
 			notifyDataSetChanged();
 		}
-
+		
 		public int getCount() {
 			return current.size();
 		}

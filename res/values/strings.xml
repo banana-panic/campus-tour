@@ -8,4 +8,5 @@
     <string name="label">Campus Tour</string>
     <string name="hint">Search for buildings and landmarks</string>
     <string name="buildinglist">Building List</string>
+    <string name="resetList">Reset List</string>
 </resources>

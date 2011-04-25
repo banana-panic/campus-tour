@@ -5,4 +5,8 @@
     android:id="@+id/buildinglist_searchbutton"
     android:title="@string/search"
     android:icon="@android:drawable/ic_menu_search" />
+    <item
+    	android:id="@+id/buildinglist_reset"
+    	android:title="@string/resetList"
+    	android:icon="@android:drawable/ic_menu_revert" />
 </menu>
