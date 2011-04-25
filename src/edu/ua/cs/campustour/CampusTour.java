@@ -41,8 +41,10 @@ import com.google.android.maps.MapView.LayoutParams;
 import edu.ua.cs.campustour.Building.ButtonState;
 
 public class CampusTour extends MapActivity {
+	public static final int SearchRequestCode = 1;
 	private static final String TAG = "CampusTourActivity";
 	private MapView map;
+	private MapController mc;
 	private RestricterOverlay restricter = new RestricterOverlay(this, LEFT_LONG, TOP_LAT, RIGHT_LONG, BOTTOM_LAT, MIN_ZOOM, MAX_ZOOM);
 	private GeoPoint mapCenter = new GeoPoint(CENTER_LAT, CENTER_LONG);
     private MyLocationWithCompassOverlay mlo;
@@ -127,7 +129,7 @@ public class CampusTour extends MapActivity {
     	
     	LayoutParams p = new MapView.LayoutParams(LayoutParams.WRAP_CONTENT,
     			LayoutParams.WRAP_CONTENT,
-    			building.geoPoint,
+    			building.getGeoPoint(),
     			MapView.LayoutParams.BOTTOM | MapView.LayoutParams.CENTER_HORIZONTAL);
     	
     	popup.setLayoutParams(p);
@@ -166,7 +168,7 @@ public class CampusTour extends MapActivity {
 			break;
 		case R.id.searchbutton:
 			Log.d(TAG, "In case searchbutton");
-			onSearchRequested();
+			launchSearchableActivity(false);
 			break;
 		default:
 			Log.d(TAG, "Unexpected MenuItem");
@@ -175,20 +177,36 @@ public class CampusTour extends MapActivity {
 		return true;
 	}
 	
-/*	@Override
+	@Override
 	public boolean onSearchRequested() {
 		Log.d(TAG, "In onSearchRequested()");
-		Bundle appData = new Bundle();
-		appData.putSerializable(SearchableActivity.Map, buildingMap);
-		startSearch(null, false, appData, false);
+		launchSearchableActivity(true);
 		return true;
-	}*/
+	}
+	
+	public void launchSearchableActivity(boolean searchBox) {
+		Intent intent = new Intent(this, SearchableActivity.class);
+		intent.putExtra(SearchableActivity.ShowSearchBox, searchBox);
+		intent.putExtra(SearchableActivity.Map, buildingMap);
+		startActivityForResult(intent, CampusTour.SearchRequestCode);
+	}
+	
+	public void onActivityResult(int request, int result, Intent intent) {
+		String id = intent.getStringExtra("id");
+		centerOn(id);
+		showPopup(id);
+	}
+	
+	public void centerOn(String id) {
+		setFollow(false);
+		mc.setCenter(buildingMap.get(id).getGeoPoint());
+	}
 	
 	public void initMapView() {
 		map = (MapView) findViewById(R.id.map);
 		map.setBuiltInZoomControls(true);
 		map.getOverlays().add(restricter);
-		MapController mc = map.getController();
+		mc = map.getController();
 		mc.setCenter(mapCenter);
 		mc.setZoom(START_ZOOM);
 	}

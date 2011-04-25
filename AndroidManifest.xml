@@ -16,7 +16,8 @@
 	    >
     	<uses-library android:name="com.google.android.maps" />
 		<activity android:name=".SearchableActivity"
-				  android:label="Search">
+				  android:label="Search"
+				  android:launchMode="singleTop">
 			<intent-filter>
 				<action android:name="android.intent.action.SEARCH" />
 				<category android:name="android.intent.category.DEFAULT" />
