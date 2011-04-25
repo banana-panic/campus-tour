@@ -54,7 +54,7 @@ public class CampusTour extends MapActivity {
 	private boolean follow = false;
 	private HashMap<String, Building> buildingMap;
 	private View popup;
-	private Building popupBuilding;
+	private Building popupBuilding = null;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -73,6 +73,16 @@ public class CampusTour extends MapActivity {
         initMyLocationOverlay();
         initMyItemizedOverlay();
         initPopup();
+    }
+    
+    @Override
+    public void onBackPressed() {
+    	if (popupBuilding != null) {
+    		hidePopup();
+    	}
+    	else {
+    		super.onBackPressed();
+    	}
     }
     
     public boolean showPopup(String id) {
@@ -141,6 +151,7 @@ public class CampusTour extends MapActivity {
     
     public void hidePopup() {
     	popup.setVisibility(View.GONE);
+    	popupBuilding = null;
     }
 
 	@Override
