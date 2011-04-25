@@ -1,8 +1,10 @@
 package edu.ua.cs.campustour;
 
+import java.io.Serializable;
+
 import com.google.android.maps.GeoPoint;
 
-public class Building {
+public class Building implements Comparable<Building>, Serializable{
 	
 	public static enum ButtonState {
 		ENABLED, DISABLED, HIDDEN;
@@ -17,7 +19,6 @@ public class Building {
 	public final ButtonState textInfoState;
 	public final ButtonState imagesState;
 	public final ButtonState avState;
-	public final GeoPoint geoPoint;
 	
 	Building(String id, String name, float lat, float lng,
 			boolean showThumbnail, ButtonState textInfoState, ButtonState imagesState, ButtonState avState) {
@@ -29,7 +30,13 @@ public class Building {
 		this.textInfoState = textInfoState;
 		this.imagesState = imagesState;
 		this.avState = avState;
-		this.geoPoint = new GeoPoint( Math.round(lat * 1000000), Math.round(lng * 1000000));
+	}
+
+	public int compareTo(Building another) {
+		return name.compareTo(another.name);
 	}
 	
+	public GeoPoint getGeoPoint() {
+		return new GeoPoint( Math.round(lat * 1000000), Math.round(lng * 1000000));
+	}
 }

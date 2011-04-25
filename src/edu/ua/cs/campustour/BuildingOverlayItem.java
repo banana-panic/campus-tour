@@ -9,7 +9,7 @@ public class BuildingOverlayItem extends OverlayItem {
 	
 	public BuildingOverlayItem(Building building) {
 		super(
-				building.geoPoint,
+				building.getGeoPoint(),
 				building.name, String.valueOf(building.lat) + ", " +
 				String.valueOf(building.lng));
 		this.building = building;
