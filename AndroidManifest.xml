@@ -17,6 +17,7 @@
     	<uses-library android:name="com.google.android.maps" />
 		<activity android:name=".SearchableActivity"
 				  android:label="Search"
+				  android:theme="@android:style/Theme.NoTitleBar"
 				  android:launchMode="singleTop">
 			<intent-filter>
 				<action android:name="android.intent.action.SEARCH" />
