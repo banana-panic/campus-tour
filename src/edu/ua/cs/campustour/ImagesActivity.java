@@ -285,32 +285,42 @@ public class ImagesActivity extends Activity implements ImageSwitcher.ViewFactor
 		}
 		
 		public void run() {
+			Bitmap fullSize = null;
 			runOnUiThread(new SwitcherPoster(thumbnail, lock, false));
 			try {
 				InputStream is = getAssets().open(path);
-				Bitmap fullSize = BitmapFactory.decodeStream(is);
+				fullSize = BitmapFactory.decodeStream(is);
 				is.close(); 
-				int viewHeight = switcher.getHeight();
-				int viewWidth = switcher.getWidth();
 				
-				int bmHeight = fullSize.getHeight();
-				int bmWidth = fullSize.getWidth();
+				int scaledHeight = 0;
+				int scaledWidth = 0;
+				for (int i = 0; i < 5 && scaledHeight == 0 && scaledWidth == 0; i++, Thread.sleep(15)) {
+					int viewHeight = switcher.getHeight();
+					int viewWidth = switcher.getWidth();
+					
+					int bmHeight = fullSize.getHeight();
+					int bmWidth = fullSize.getWidth();
 				
-				boolean port = (viewHeight / (float) bmHeight) * bmWidth < viewWidth;
+					boolean port = (viewHeight / (float) bmHeight) * bmWidth < viewWidth;
+					scaledHeight = (port ? viewHeight :
+						Math.round(bmHeight * viewWidth / (float) bmWidth));
+					scaledWidth = (port ? Math.round(bmWidth * viewHeight / (float) bmHeight) :
+						viewWidth);
+				}
 				
-				int scaledHeight = (port ? viewHeight :
-					Math.round(bmHeight * viewWidth / (float) bmWidth));
-				int scaledWidth = (port ? Math.round(bmWidth * viewHeight / (float) bmHeight) :
-					viewWidth);
-				
-				Bitmap resized = Bitmap.createScaledBitmap(fullSize, scaledWidth, scaledHeight, true);
+				Bitmap resized = null;
+				if (scaledHeight != 0 && scaledWidth != 0)
+					resized = Bitmap.createScaledBitmap(fullSize, scaledWidth, scaledHeight, true);
 				
 				fullSize.recycle();
 				
-				runOnUiThread(new SwitcherPoster(resized, lock, true));
+				if (resized != null )runOnUiThread(new SwitcherPoster(resized, lock, true));
 				
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				if (fullSize != null) fullSize.recycle();
 			}
 		}
 		
