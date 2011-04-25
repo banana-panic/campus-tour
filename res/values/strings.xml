@@ -4,4 +4,7 @@
     <string name="maps_key">0syY4TWYUSayx7RhNCQJuL1taBlEi7OUUuov65w</string>
     <string name="exit">Exit</string>
     <string name="follow">My Location</string>
+    <string name="search">Search</string>
+    <string name="label">Campus Tour</string>
+    <string name="hint">Search for buildings and landmarks</string>
 </resources>
