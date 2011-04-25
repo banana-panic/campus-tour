@@ -5,6 +5,9 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class SearchableActivity extends Activity {
 	public static final String Map = "map";
@@ -22,5 +25,24 @@ public class SearchableActivity extends Activity {
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	      String query = intent.getStringExtra(SearchManager.QUERY);
 	    }
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.buildinglist_menu, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.buildinglist_searchbutton:
+			onSearchRequested();
+			break;
+		default:
+			Log.w(TAG, "Unexpected MenuItem");
+		}
+		return true;
 	}
 }
