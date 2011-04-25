@@ -213,7 +213,7 @@ public class ImagesActivity extends Activity implements ImageSwitcher.ViewFactor
 						orig = BitmapFactory.decodeStream(is);
 						is.close();
 						int width = Math.round(orig.getWidth() * (float) scale(60) / orig.getHeight());
-						scaled = Bitmap.createScaledBitmap(orig, width, scale(60), false);
+						scaled = Bitmap.createScaledBitmap(orig, width * 2, scale(60) * 2, true);
 						orig.recycle();
 						runOnUiThread(new ThumbnailPoster(names[i], scaled));
 					} catch (IOException e) {
