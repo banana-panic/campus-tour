@@ -28,6 +28,7 @@
 	        </intent-filter>
         </activity>
         <activity android:name=".ImagesActivity" />
+        <activity android:name=".AvList" />
 
     </application>
 </manifest>

@@ -204,6 +204,8 @@ public class CampusTour extends MapActivity {
 		b.setOnClickListener(new TextInfoButtonListener());
 		b = (ImageButton) popup.findViewById(R.id.popup_image_gallery);
 		b.setOnClickListener(new ImagesButtonListener());
+		b = (ImageButton) popup.findViewById(R.id.popup_av_gallery);
+		b.setOnClickListener(new AvButtonListener());
 		map.addView(popup);
 	}
 	
@@ -229,6 +231,16 @@ public class CampusTour extends MapActivity {
 
 		public void onClick(View v) {
 			Intent intent = new Intent(CampusTour.this, ImagesActivity.class);
+			intent.putExtra("id", popupBuilding.id);
+			startActivity(intent);
+		}
+		
+	}
+	
+	private class AvButtonListener implements OnClickListener {
+
+		public void onClick(View v) {
+			Intent intent = new Intent(CampusTour.this, AvList.class);
 			intent.putExtra("id", popupBuilding.id);
 			startActivity(intent);
 		}

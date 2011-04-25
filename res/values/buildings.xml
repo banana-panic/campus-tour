@@ -230,7 +230,7 @@
 			\"thumbnail\":true,
 			\"textInfo\": "enabled",
 			\"images\": "enabled",
-			\"av\": "disabled"
+			\"av\": "enabled"
 		}
 	] }
 	</string>
