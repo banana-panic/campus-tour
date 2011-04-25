@@ -11,10 +11,13 @@
     <uses-permission
      android:name="android.permission.INTERNET" />
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+    <application android:icon="@drawable/icon"
+	    android:label="@string/app_name"
+	    >
     	<uses-library android:name="com.google.android.maps" />
-		<activity android:name=".SearchableActivity"
+		<activity android:name=".BuildingList"
 				  android:label="Search"
+				  android:theme="@android:style/Theme.NoTitleBar"
 				  android:launchMode="singleTop">
 			<intent-filter>
 				<action android:name="android.intent.action.SEARCH" />
@@ -24,7 +27,8 @@
 					   android:resource="@xml/searchable" />
 		</activity>
         <activity android:name=".CampusTour"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+				  android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -32,8 +36,16 @@
         	<meta-data android:name="android.app.default_searchable"
 				   	   android:value=".SearchableActivity" />
         </activity>
-        <activity android:name=".TextInfo" />
-        <activity android:name=".ImagesActivity" />
-        <activity android:name=".AvList" />
+        <activity android:name=".TextInfo"
+        		  android:label="@string/app_name"
+        		  android:theme="@android:style/Theme.NoTitleBar">
+	        <intent-filter>
+	        	<action android:name="android.intent.action.VIEW"/>
+	        	<category android:name="android.intent.category.DEFAULT"/>
+	        </intent-filter>
+        </activity>
+        <activity android:name=".ImagesActivity" android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name=".AvList" android:theme="@android:style/Theme.NoTitleBar" />
+
     </application>
 </manifest>

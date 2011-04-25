@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import org.json.JSONException;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -53,7 +54,7 @@ public class CampusTour extends MapActivity {
 	private boolean follow = false;
 	private HashMap<String, Building> buildingMap;
 	private View popup;
-	private Building popupBuilding;
+	private Building popupBuilding = null;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -72,6 +73,16 @@ public class CampusTour extends MapActivity {
         initMyLocationOverlay();
         initMyItemizedOverlay();
         initPopup();
+    }
+    
+    @Override
+    public void onBackPressed() {
+    	if (popupBuilding != null) {
+    		hidePopup();
+    	}
+    	else {
+    		super.onBackPressed();
+    	}
     }
     
     public boolean showPopup(String id) {
@@ -140,6 +151,7 @@ public class CampusTour extends MapActivity {
     
     public void hidePopup() {
     	popup.setVisibility(View.GONE);
+    	popupBuilding = null;
     }
 
 	@Override
@@ -158,15 +170,15 @@ public class CampusTour extends MapActivity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		Log.d(TAG, "In onMenuItemSelected()");
 		switch (item.getItemId()) {
-		case R.id.followbutton:
+		case R.id.map_menu_follow:
 			setFollow(true);
 			break;
-		case R.id.exitbutton:
+		case R.id.map_menu_exit:
 			mlo.disableMyLocation();
 			mlo.disableCompass();
 			finish();
 			break;
-		case R.id.searchbutton:
+		case R.id.map_menu_list:
 			Log.d(TAG, "In case searchbutton");
 			launchSearchableActivity(false);
 			break;
@@ -185,16 +197,18 @@ public class CampusTour extends MapActivity {
 	}
 	
 	public void launchSearchableActivity(boolean searchBox) {
-		Intent intent = new Intent(this, SearchableActivity.class);
-		intent.putExtra(SearchableActivity.ShowSearchBox, searchBox);
-		intent.putExtra(SearchableActivity.Map, buildingMap);
+		Intent intent = new Intent(this, BuildingList.class);
+		intent.putExtra(BuildingList.ShowSearchBox, searchBox);
+		intent.putExtra(BuildingList.Map, buildingMap);
 		startActivityForResult(intent, CampusTour.SearchRequestCode);
 	}
 	
 	public void onActivityResult(int request, int result, Intent intent) {
-		String id = intent.getStringExtra("id");
-		centerOn(id);
-		showPopup(id);
+		if (result != Activity.RESULT_CANCELED) {
+			String id = intent.getStringExtra("id");
+			centerOn(id);
+			showPopup(id);
+		}
 	}
 	
 	public void centerOn(String id) {

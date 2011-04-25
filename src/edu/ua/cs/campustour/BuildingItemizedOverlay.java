@@ -34,7 +34,7 @@ public class BuildingItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 	
 	@Override
 	public void draw(Canvas canvas, MapView mapView, boolean shadow) {
-		super.draw(canvas, mapView, shadow);
+		if (shadow == false) super.draw(canvas, mapView, shadow);
 	}
 	
 	@Override
