@@ -27,6 +27,7 @@ public class SearchableActivity extends Activity {
 	private HashMap<String, Building> buildingMap;
 	private Boolean searchBox;
 	private final String TAG = "Search";
+	private BuildingAdapter ba;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class SearchableActivity extends Activity {
 	    searchBox = intent.getBooleanExtra(ShowSearchBox, false);
 	    
 	    ListView lv = (ListView) findViewById(R.id.searchlist);
-	    BuildingAdapter ba = new BuildingAdapter(buildingMap);
+	    ba = new BuildingAdapter(buildingMap);
 	    lv.setAdapter(ba);
 	    lv.setOnItemClickListener(ba);
 	    
@@ -58,14 +59,11 @@ public class SearchableActivity extends Activity {
 	}
 
 	private void handleIntent(Intent intent) {
+		Log.d(TAG, "handleAction");
 	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 	      String query = intent.getStringExtra(SearchManager.QUERY);
-	      searchFor(query);
+	      ba.searchFor(query);
 	    }
-	}
-
-	private void searchFor(String query) {
-		//TODO Search
 	}
 
 	@Override
@@ -101,6 +99,17 @@ public class SearchableActivity extends Activity {
 			Collections.sort(current);
 		}
 		
+		public void searchFor(String query) {
+			current = new ArrayList<Building>(init.size());
+			for (Building v : init.values()) {
+				if (v.name.toLowerCase().contains(query.toLowerCase())) {
+					current.add(v);
+				}
+			}
+			Collections.sort(current);
+			notifyDataSetChanged();
+		}
+
 		public int getCount() {
 			return current.size();
 		}
