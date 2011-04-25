@@ -9,6 +9,9 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,9 +20,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 public class BuildingList extends Activity {
 	public static final String Map = "map";
@@ -32,16 +32,22 @@ public class BuildingList extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    BuildingListState bls = (BuildingListState) getLastNonConfigurationInstance();
 	    setContentView(R.layout.search);
-	    
-	    Log.d(TAG, "In BuildingList");
-
-	    Intent intent = getIntent();
-	    buildingMap = (HashMap<String, Building>) intent.getSerializableExtra(Map);
-	    searchBox = intent.getBooleanExtra(ShowSearchBox, false);
-	    
 	    ListView lv = (ListView) findViewById(R.id.searchlist);
-	    ba = new BuildingAdapter(buildingMap);
+	    
+	    Intent intent = getIntent();
+	    if (bls == null) {
+	    	buildingMap = (HashMap<String, Building>) intent.getSerializableExtra(Map);
+		    searchBox = intent.getBooleanExtra(ShowSearchBox, false);
+		    ba = new BuildingAdapter(buildingMap);
+	    }
+	    else {
+	    	buildingMap = bls.buildingMap;
+	    	searchBox = false;
+	    	ba = new BuildingAdapter(bls.adapterState);
+	    }
+	    
 	    lv.setAdapter(ba);
 	    lv.setOnItemClickListener(ba);
 	    
@@ -51,7 +57,22 @@ public class BuildingList extends Activity {
 	    
 	    handleIntent(intent);
 	}
-
+	
+	public class BuildingListState {
+		private BuildingAdapter.BuildingAdapterState adapterState;
+		private HashMap<String, Building> buildingMap;
+		
+		public BuildingListState(HashMap<String, Building> buildingMap) {
+			this.adapterState = ba.getState();
+			this.buildingMap = buildingMap;
+		}
+	}
+	
+	@Override
+	public Object onRetainNonConfigurationInstance() {
+		return new BuildingListState(buildingMap);
+	};
+	
 	@Override
 	protected void onNewIntent(Intent intent) {
 	    setIntent(intent);
@@ -100,6 +121,24 @@ public class BuildingList extends Activity {
 				current.add(v);
 			}
 			Collections.sort(current);
+		}
+		
+		public BuildingAdapter(BuildingAdapterState state) {
+			this.init = state.init;
+			this.current = state.current;
+		}
+		
+		public class BuildingAdapterState {
+			public final HashMap<String, Building> init;
+			public final ArrayList<Building> current;
+			public BuildingAdapterState(HashMap<String, Building> init, ArrayList<Building> current) {
+				this.init = init;
+				this.current = current;
+			}
+		}
+		
+		public BuildingAdapterState getState() {
+			return new BuildingAdapterState(init, current);
 		}
 		
 		public void searchFor(String query) {
