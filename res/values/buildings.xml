@@ -3,7 +3,7 @@
 	<string name="buildings">
 	{\"buildings\": [
 		{
-			\"id\": \"ID - AIME Alabama Institute for Manufacturing\",
+			\"id\": \"0\",
 			\"name\": \"AIME\",
 			\"lat\": 33.217207, 
 			\"long\": -87.545237,
@@ -13,7 +13,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Amelia Gorgas Library\",
+			\"id\": \"1\",
 			\"name\": \"Gorgas Library\",
 			\"lat\": 33.211776,
 			\"long\": -87.545950,
@@ -23,7 +23,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - BB Comer Hall\",
+			\"id\": \"2\",
 			\"name\": \"B. B. Comer Hall\",
 			\"lat\": 33.213558,
 			\"long\":  -87.546970,
@@ -33,7 +33,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Bryant-Denny Stadium\",
+			\"id\": \"3\",
 			\"name\": \"Bryant-Denny Stadium\",
 			\"lat\": 33.207723, 
 			\"long\": -87.550328,
@@ -43,7 +43,7 @@
 			\"av\": "enabled"
 		},
 		{
-			\"id\": \"ID - Bureau of Mines\",
+			\"id\": \"4\",
 			\"name\": \"Bureau of Mines\",
 			\"lat\": 33.212355,
 			\"long\": -87.544701,
@@ -53,7 +53,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Clark Hall\",
+			\"id\": \"5\",
 			\"name\": \"Clark Hall\",
 			\"lat\": 33.212530,
 			\"long\": -87.545854,
@@ -63,7 +63,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Denny Chimes\",
+			\"id\": \"6\",
 			\"name\": \"Denny Chimes\",
 			\"lat\": 33.209909,
 			\"long\": -87.546310,
@@ -73,7 +73,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Ferguson Student Center\",
+			\"id\": \"7\",
 			\"name\": \"Ferguson Student Center\",
 			\"lat\": 33.214608,
 			\"long\": -87.545618,
@@ -83,7 +83,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Gallalee Hall\",
+			\"id\": \"8\",
 			\"name\": \"Gallalee Hall\",
 			\"lat\": 33.209541,
 			\"long\": -87.543869,
@@ -93,7 +93,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Garland Hall\",
+			\"id\": \"9\",
 			\"name\": \"Garland Hall\",
 			\"lat\": 33.212544,
 			\"long\": -87.545441,
@@ -103,7 +103,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - H M Comer Hall\",
+			\"id\": \"10\",
 			\"name\": \"H. M. Comer Hall\",
 			\"lat\": 33.215600,
 			\"long\": -87.544207,
@@ -113,7 +113,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Hardaway Hall\",
+			\"id\": \"11\",
 			\"name\": \"Hardaway Hall\",
 			\"lat\": 33.213271,
 			\"long\": -87.544668,
@@ -123,7 +123,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Houser Hall\",
+			\"id\": \"12\",
 			\"name\": \"Houser Hall\",
 			\"lat\": 33.214357,
 			\"long\": -87.544523,
@@ -133,7 +133,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - John T Oliver\",
+			\"id\": \"13\",
 			\"name\": \"John Oliver - Barnard Hall\",
 			\"lat\": 33.211924,
 			\"long\": -87.547088,
@@ -143,7 +143,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Lloyd Hall\",
+			\"id\": \"14\",
 			\"name\": \"Lloyd Hall\",
 			\"lat\": 33.211027,
 			\"long\": -87.543783,
@@ -153,7 +153,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Manly Hall\",
+			\"id\": \"15\",
 			\"name\": \"Manly Hall\",
 			\"lat\": 33.212607,
 			\"long\": -87.546315,
@@ -163,7 +163,7 @@
 			\"av\": "disabled"
 		},
 		{
-			\"id\": \"ID - Nott Hall\",
+			\"id\": \"16\",
 			\"name\": \"Nott Hall\",
 			\"lat\": 33.210336, 
 			\"long\": -87.543837,
@@ -173,7 +173,7 @@
 			\"av\": "disabled"
 		},	
 		{
-			\"id\": \"ID - Presidents Mansion\",
+			\"id\": \"17\",
 			\"name\": \"President\'s Mansion\",
 			\"lat\": 33.208769, 
 			\"long\": -87.546460,
@@ -183,7 +183,7 @@
 			\"av\": "disabled"
 		},	
 		{
-			\"id\": \"ID - Rogers Library\",
+			\"id\": \"18\",
 			\"name\": \"Rogers Library\",
 			\"lat\": 33.213500, 
 			\"long\": -87.542732,
@@ -193,7 +193,7 @@
 			\"av\": "disabled"
 		},	
 		{
-			\"id\": \"ID - Shelby Hall\",
+			\"id\": \"19\",
 			\"name\": \"Shelby Hall\",
 			\"lat\": 33.215012, 
 			\"long\": -87.542367,
@@ -203,7 +203,7 @@
 			\"av\": "disabled"
 		},	
 		{
-			\"id\": \"ID - Smith Hall\",
+			\"id\": \"20\",
 			\"name\": \"Smith Hall\",
 			\"lat\": 33.211875, 
 			\"long\": -87.543885,
@@ -213,7 +213,7 @@
 			\"av\": "disabled"
 		},	
 		{
-			\"id\": \"ID - Tom Bevill\",
+			\"id\": \"21\",
 			\"name\": \"Tom Bevill Hall - MIB\",
 			\"lat\": 33.216560, 
 			\"long\": -87.543890,
@@ -223,7 +223,7 @@
 			\"av\": "disabled"
 		},	
 		{
-			\"id\": \"ID - Woods Hall\",
+			\"id\": \"22\",
 			\"name\": \"Woods Hall\",
 			\"lat\": 33.213316, 
 			\"long\": -87.545763,
